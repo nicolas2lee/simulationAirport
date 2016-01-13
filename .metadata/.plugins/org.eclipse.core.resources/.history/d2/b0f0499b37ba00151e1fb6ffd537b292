@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airport;
+
+/**
+ * @author zhengta
+ *
+ */
+public class airportFeatures extends SimFeatures{
+
+	/**
+	 * 
+	 */
+	public airportFeatures() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

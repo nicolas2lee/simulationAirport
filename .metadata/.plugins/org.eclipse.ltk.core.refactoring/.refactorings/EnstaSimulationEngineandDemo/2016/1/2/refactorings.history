@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;CategoriesGenerator.java&apos; to &apos;simulationAirport/TD1/enstabretagne.base.utility&apos;&#x0D;&#x0A;- Original project: &apos;EnstaSimulationEngineandDemo&apos;&#x0D;&#x0A;- Destination element: &apos;simulationAirport/TD1/enstabretagne.base.utility&apos;&#x0D;&#x0A;- Original element: &apos;enstabretagne.base.utility.CategoriesGenerator.java&apos;" description="Copy compilation unit" destination="=simulationAirport/TD1&lt;enstabretagne.base.utility" element1="/src&lt;enstabretagne.base.utility{CategoriesGenerator.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1452720296856" units="1" version="1.0"/>
+</session>

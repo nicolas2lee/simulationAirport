@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airport;
+
+import enstabretagne.simulation.components.SimInitParameters;
+
+/**
+ * @author zhengta
+ *
+ */
+public class airportInit extends SimInitParameters {
+
+	/**
+	 * 
+	 */
+	HashMap<airplaneIds, airplaneInit> airplaneinit;
+	public airportInit() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

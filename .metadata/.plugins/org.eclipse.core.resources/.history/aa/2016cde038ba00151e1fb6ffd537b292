@@ -1,0 +1,28 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airport;
+
+import java.util.List;
+
+import enstabretagne.SimEntity.airplane.airplaneFeature;
+import enstabretagne.simulation.components.SimFeatures;
+
+/**
+ * @author zhengta
+ *
+ */
+public class airportFeatures extends SimFeatures{
+
+	/**
+	 * 
+	 */
+	public airportFeatures(String id,
+			int nbTerminal,
+			int nbGate,
+			int nbTrack,
+			List<airplaneFeature> airplaneFeatureslist) {
+		
+	}
+
+}

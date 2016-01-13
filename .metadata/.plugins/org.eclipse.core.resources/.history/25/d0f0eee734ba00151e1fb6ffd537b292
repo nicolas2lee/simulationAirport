@@ -1,0 +1,40 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airplane;
+
+import enstabretagne.simulation.components.SimFeatures;
+
+
+
+/**
+ * @author zhengta
+ *
+ */
+public class airplaneFeature extends SimFeatures{
+
+	airplaneIds airplaneId;
+	StatutCoiffeur coiffeurStatut;
+	double vitesseCoupe;
+	double popularite;
+
+	
+	
+	public airplaneIds getCoiffeurName() {
+		return coiffeurName;
+	}
+
+	public StatutCoiffeur getCoiffeurStatut(){
+		return coiffeurStatut;
+	}
+	
+
+	
+	public airplaneFeature(airplaneId airplaneId, StatutCoiffeur statut) {
+		super(airplaneId);
+		this.airplaneId=airplaneId;
+		this.vitesseCoupe=vitesseCoupe;
+		this.coiffeurStatut=statut;
+		this.popularite=popularite;
+	}
+}

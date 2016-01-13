@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airport;
+
+/**
+ * @author zhengta
+ *
+ */
+public class airportInit {
+
+	/**
+	 * 
+	 */
+	public airportInit() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

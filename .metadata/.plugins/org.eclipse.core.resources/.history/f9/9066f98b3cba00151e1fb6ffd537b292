@@ -1,0 +1,42 @@
+/**
+ * 
+ */
+package enstabretagne.context;
+
+import enstabretagne.SimEntity.airport.airportFeatures;
+import enstabretagne.SimEntity.airport.airportInit;
+import enstabretagne.base.utility.CategoriesGenerator;
+import enstabretagne.simulation.components.SimFeatures;
+
+
+
+/**
+ * @author zhengta
+ *
+ */
+public class airportContextFeatures extends SimFeatures{
+
+	private String beginFlightTime;
+	private String endFlightTime;
+	public airportContextFeatures(String id, 
+			String beginFlightTime,String endFlightTime, 
+			airportFeatures apFeatures,
+			airportInit airportinit, CategoriesGenerator arrivalDelayRecordingCatGen,CategoriesGenerator delaiAttenteRecordingCatGen) {
+		super(id);
+		
+		this.beginFlightTime = debutArriveeClient;
+		this.finArriveeClient = finArriveeClient;
+		this.salonFeatures = salonFeatures;
+		this.salonInit = salonInit;
+		this.ArrivalDelayRecordingCatGen = arrivalDelayRecordingCatGen;
+		this.delaiAttenteRecordingCatGen = delaiAttenteRecordingCatGen;
+	}
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
