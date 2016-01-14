@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airport;
+import java.util.HashMap;
+
+import enstabretagne.base.utility.IRecordable;
+import enstabretagne.simulation.components.SimEntity;
+/**
+ * @author nicolas2lee
+ *
+ */
+public class airport extends SimEntity implements IRecordable {
+
+	/**
+	 * 
+	 */
+	public airport() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

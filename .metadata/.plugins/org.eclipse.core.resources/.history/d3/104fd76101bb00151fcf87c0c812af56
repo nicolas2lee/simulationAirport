@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package enstabretagne.messages;
+
+/**
+ * @author zhengta
+ *
+ */
+public class Messages {
+
+	/**
+	 * 
+	 */
+	public Messages() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

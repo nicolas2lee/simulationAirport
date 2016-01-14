@@ -3,17 +3,13 @@
  */
 package enstabretagne.airportMonitor;
 
-import java.time.DayOfWeek;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
-
-
-
 import java.util.List;
 
+import enstabretagne.Scenario.airportScenario;
+import enstabretagne.Scenario.airportScenarioFeatures;
 import enstabretagne.SimEntity.airplane.StatutAirplane;
 import enstabretagne.SimEntity.airplane.airplaneFeature;
 import enstabretagne.SimEntity.airplane.airplaneIds;
@@ -24,11 +20,11 @@ import enstabretagne.SimEntity.airport.airportInit;
 //import enstabretagne.SimEntity.airplane.airplaneNames;
 import enstabretagne.base.time.LogicalDateTime;
 import enstabretagne.base.time.LogicalDuration;
+import enstabretagne.base.utility.CategoriesGenerator;
 //import enstabretagne.base.utility.CategoriesGenerator;
 import enstabretagne.base.utility.LoggerParamsNames;
 import enstabretagne.base.utility.loggerimpl.SXLSXExcelDataloggerImpl;
 import enstabretagne.base.utility.loggerimpl.SysOutLogger;
-import enstabretagne.context.airportContextFeatures;
 /**
  * @author nicolas2lee
  *
@@ -81,10 +77,11 @@ public class airportMonitor extends MonteCarloMonitor {
 		
 		//Déclaration des données qui serviront à l'initialisation du scénario
 		LogicalDateTime start = new LogicalDateTime("01/09/2014 06:00");
-		int nbDaysOfSimulation = 100;
+		int nbDaysOfSimulation = 90;
 //		int repliqueNumber = 5;
 		String beginFlightTime="07:00";
 		String endFlightTime="22:00";
+		int  repliqueNumber=1;
 //		String heureDebutArriveeClient="09:00";
 //		String heureFinArriveeClient="20:00";
 //		int nbClientMaxEnSalle = 10;
@@ -93,11 +90,14 @@ public class airportMonitor extends MonteCarloMonitor {
 //		List<DayOfWeek> joursFermeture = new ArrayList<DayOfWeek>();
 //		joursFermeture.add(DayOfWeek.SUNDAY);
 //		joursFermeture.add(DayOfWeek.MONDAY);
+		int nbTerminal;
+		int nbGate;
+		int nbTrack;
 		List<SimScenario> listeScenario = new ArrayList<SimScenario>();
 		
 		
 		//déclaration des variables qui nous servirons à chaque run
-		airportContextFeatures scsf; 
+		airportScenarioFeatures asf; 
 	
 		List<airplaneFeature> l;
 		
@@ -122,23 +122,32 @@ public class airportMonitor extends MonteCarloMonitor {
 		i.put(flght_1,new airplaneInit());
 		i.put(flght_2,new airplaneInit());
 		
-		scsf = new airportContextFeatures(
-				"ContextAirport1", 
+		nbTerminal=1;
+		nbGate=4;
+		nbTrack=1;
+		int periodArrivePlaneInMins = 20;
+		asf = new airportScenarioFeatures(
+				"ScenarioAirport1", 
 				beginFlightTime, 
 				endFlightTime,
-				new airportFeatures("Aiport alpha", 1, 4, 1, l),
+				20,10,40,2,//normal_time(Mon-Fri 10-17), busy_time(Mon-Fri 7-10,17-19), weekend_time(Sat,sun), coef of bad weather
+				new airportFeatures("Aiport alpha", nbTerminal, nbGate, nbTrack, l),
 				new airportInit(i),
-				new CategoriesGenerator(0, periodeArriveeClientsEnMinutes*10, 10, 3, 2),
-				new CategoriesGenerator(0, vitesseDeCoupe*5, 50, 3, 2)
+				new CategoriesGenerator(0, periodArrivePlaneInMins*10, 10, 3, 2)
+				//new CategoriesGenerator(0, vitesseDeCoupe*5, 50, 3, 2)
 				);
-		/*
-		listeScenario.add(new SalonCoiffureScenario(
+		
+		listeScenario.add(new airportScenario(
 				sm.getEngine(),
 				new ScenarioId("Scenario1"),
-				scsf,
+				asf,
 				start,
-				start.add(LogicalDuration.ofDay(nbJoursDeSimulation))
-		));*/
+				start.add(LogicalDuration.ofDay(nbDaysOfSimulation))
+		));
+		
+		sm.run(listeScenario, repliqueNumber);
+		sm.terminate(false);
+		System.out.println("End :"+Instant.now());
 	}
 
 }

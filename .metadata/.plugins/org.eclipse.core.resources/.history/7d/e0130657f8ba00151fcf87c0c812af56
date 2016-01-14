@@ -1,0 +1,11 @@
+package enstabretagne.context;
+
+import enstabretagne.simulation.components.SimScenario;
+
+public class airportContext extends SimScenario {
+
+	public airportContext(SimEngine engine,) {
+		super(engine, scenarioId,  features, start, end);
+	}
+
+}

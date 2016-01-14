@@ -22,6 +22,22 @@ public class airportFeatures extends SimFeatures{
 	private int nbTrack;
 	private List<airplaneFeature> airplaneFeatureslist;
 	
+	List<airplaneFeature> airplaneFeatures;
+	
+
+
+	public List<airplaneFeature> getAirplaneFeatures() {
+		return airplaneFeatures;
+	}
+
+
+
+	public void setAirplaneFeatures(List<airplaneFeature> airplaneFeatures) {
+		this.airplaneFeatures = airplaneFeatures;
+	}
+
+
+
 	public airportFeatures(String id,
 			int nbTerminal,
 			int nbGate,
