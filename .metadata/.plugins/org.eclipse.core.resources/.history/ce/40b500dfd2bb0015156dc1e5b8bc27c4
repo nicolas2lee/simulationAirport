@@ -1,0 +1,6 @@
+package simulation.airport.SEntity.Airplane;
+
+public enum AirplaneStatus {
+	Depart("Depart"),
+	Arrive("Arrive");
+}

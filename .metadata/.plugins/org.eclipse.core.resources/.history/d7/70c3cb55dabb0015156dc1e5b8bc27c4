@@ -1,0 +1,7 @@
+package simulation.airport.SimEvent;
+
+public class DepartEvent implements IDepartEvent{
+
+	
+
+}

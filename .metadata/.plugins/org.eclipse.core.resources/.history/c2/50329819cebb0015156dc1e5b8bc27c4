@@ -1,0 +1,5 @@
+package simulation.airport.SimEntity.airplane;
+
+public class Airplane {
+
+}

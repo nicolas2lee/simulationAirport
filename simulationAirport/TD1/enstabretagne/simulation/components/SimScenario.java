@@ -160,8 +160,6 @@ public class SimScenario extends SimEntity implements IScenario,IScenarioIdProvi
 			
 	}
 
-	
-
 	@Override
 	public void onParentSet() {
 		

@@ -1,0 +1,6 @@
+package simulation.airport.SimEvent;
+
+public interface IDepartEvent {
+	SimEvent NotifDepart();
+
+}

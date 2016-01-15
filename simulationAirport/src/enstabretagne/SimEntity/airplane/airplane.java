@@ -9,12 +9,12 @@ import enstabretagne.simulation.core.SimEngine;
 
 public class airplane extends SimEntity implements IRecordable{
 
-	airplaneIds airplaneId ;
-	public airplaneIds getAirplaneId() {
+	String airplaneId ;
+	public String getAirplaneId() {
 		return airplaneId;
 	}
 
-	public void setAirplaneId(airplaneIds airplaneId) {
+	public void setAirplaneId(String airplaneId) {
 		this.airplaneId = airplaneId;
 	}
 

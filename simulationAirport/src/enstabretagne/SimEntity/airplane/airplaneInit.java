@@ -3,17 +3,14 @@
  */
 package enstabretagne.SimEntity.airplane;
 
+import enstabretagne.simulation.components.SimInitParameters;
+
 /**
  * @author zhengta
  *
  */
-public class airplaneInit {
+public class airplaneInit extends SimInitParameters {
 
-	/**
-	 * 
-	 */
-	public airplaneInit() {
-		// TODO Auto-generated constructor stub
-	}
+
 
 }

@@ -1,0 +1,119 @@
+package enstabretagne.Scenario;
+
+import enstabretagne.SimEntity.airplane.airplane;
+import enstabretagne.SimEntity.airplane.airplaneFeature;
+import enstabretagne.SimEntity.airplane.airplaneIds;
+import enstabretagne.SimEntity.airport.airport;
+import enstabretagne.base.math.MoreRandom;
+import enstabretagne.base.time.LogicalDateTime;
+import enstabretagne.base.time.LogicalDuration;
+import enstabretagne.base.utility.CategoriesGenerator;
+import enstabretagne.base.utility.IRecordable;
+import enstabretagne.base.utility.Logger;
+import enstabretagne.messages.Messages;
+import enstabretagne.simulation.components.ScenarioId;
+import enstabretagne.simulation.components.SimFeatures;
+import enstabretagne.simulation.components.SimScenario;
+import enstabretagne.simulation.core.SimEngine;
+import enstabretagne.simulation.core.SimEvent;
+
+public class airportScenario extends SimScenario {
+	
+	private CategoriesGenerator arrivalDelayRecordingCatGen;
+	private MoreRandom random;
+	private LogicalDuration beginFlightTime;
+	private LogicalDuration endFlightTime;
+	private airportScenarioFeatures asf;
+	
+	public airportScenario(SimEngine engine,
+			ScenarioId scenarioId, 
+			SimFeatures features,LogicalDateTime start, LogicalDateTime end) {
+		super(engine, scenarioId,  features, start, end);
+		//System.out.println("====================the simulation data is "+engine.SimulationDate()+"===========");
+		asf = (airportScenarioFeatures) features;
+		arrivalDelayRecordingCatGen = asf.getArrivalDelayRecordingCatGen();
+		
+		random = new MoreRandom(MoreRandom.globalSeed);
+		
+		//lamda_arrive_airplane_normal = 
+		beginFlightTime = LogicalDuration.fromString(asf.getBeginFlightTime());
+		endFlightTime = LogicalDuration.fromString(asf.getEndFlightTime());
+		
+		
+		Add(new Action_EntityCreation(airport.class, asf.getApFeatures().getId(), asf.getApFeatures(), asf.getAirportinit()));
+		
+	}
+	
+	int nbAirplanes;
+	class beginArriveAirplane extends SimEvent{
+		@Override
+		public void Process() {
+			LogicalDateTime d = getNextTimeAirplane();
+			if (d!= null) Post(new NewAirplaneEvent(),d);			
+			Post(new endArriveAirplane(), getCurrentLogicalDate().truncateToDays().add(endFlightTime));
+			Logger.Information(this.Owner(), "beginArriveAirplane", Messages.BeginPeriodNewAirplane);
+		}
+	}
+	
+	class NewAirplaneEvent extends SimEvent {
+		int lasttimeNextAirplane;
+		@Override
+		public void Process() {
+			airplaneFeature af ;
+			af=new airplaneFeature("Airplane_"+nbAirplanes++,/*airplaneId*/"A00",6);
+			
+			airplane c=(airplane)createChild(getEngine(),airplane.class, af.getId(), af);
+			
+			c.Initialize(new ClientInit(delaiAttenteRecordingCatGen));
+			Logger.Information(this.Owner(), "NouveauClient", Messages.NouveauClientPotentiel,cf.getId());
+			LogicalDateTime d = getNextTimeForClient();
+			if(d!=null) Post(new NouveauClientEvent(),d);
+
+			c.activate();
+			
+		}
+		
+		
+	}
+	
+	private class VerifDistribRecord implements IRecordable{
+		double d;
+		public VerifDistribRecord(double d){
+			this.d = d;
+		}
+		@Override
+		public String[] getTitles() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String[] getRecords() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getClassement() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
+	LogicalDateTime getNextTimeAirplane() {
+		//need to calculate lamda
+		double lamda = asf.getFrequenceArriveAirplanePerHour_normal()/3600;
+		double d=random.nextExp(lamda);
+		Logger.Data(new VerifDistribRecord(d));
+		
+		LogicalDuration t= LogicalDuration.ofSeconds(d);
+		LogicalDateTime nextEndOfAirplaneArrival = getCurrentLogicalDate().truncateToDays().add(endFlightTime);
+		
+		LogicalDateTime possibleAirplaneArrival = getCurrentLogicalDate().add(t);
+		if(possibleAirplaneArrival.compareTo(nextEndOfAirplaneArrival)<0)
+			return possibleAirplaneArrival;
+		else
+			return null;
+	}
+
+}

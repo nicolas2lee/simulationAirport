@@ -13,12 +13,12 @@ import enstabretagne.simulation.components.SimFeatures;
  */
 public class airplaneFeature extends SimFeatures{
 
-	airplaneIds airplaneId;
+	String airplaneId;
 	StatutAirplane statutAirplane;
 	
 	
 	
-	public airplaneIds getAirplaneId() {
+	public String getAirplaneId() {
 		return airplaneId;
 	}
 
@@ -28,7 +28,7 @@ public class airplaneFeature extends SimFeatures{
 	
 
 	
-	public airplaneFeature(airplaneIds airplaneId, StatutAirplane statut) {
+	public airplaneFeature(String airplaneId, StatutAirplane statut) {
 		super(airplaneId.toString());
 		this.airplaneId=airplaneId;
 		

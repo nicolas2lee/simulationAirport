@@ -299,6 +299,7 @@ public abstract class SimEntity extends SimObject implements IEntity {
 		
 		try {
 			Constructor<? extends SimEntity> c = type.getConstructor(SimEngine.class,String.class,SimFeatures.class);
+			
 			e=c.newInstance(engine,name,features);
 
 			e.setCurrentTransition(EntityTransition.CREATE);
@@ -342,6 +343,7 @@ public abstract class SimEntity extends SimObject implements IEntity {
 			OnInitializing.forEach((initializationListener) -> initializationListener
 					.NotifyInitialization(this, init));
 		initParameters = init;
+		//System.out.println(init);
 		InitializeSimEntity(init);
 		
 		setCurrentTransition(EntityTransition.NONE);

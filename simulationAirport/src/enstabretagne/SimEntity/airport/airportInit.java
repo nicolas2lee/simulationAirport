@@ -5,7 +5,6 @@ package enstabretagne.SimEntity.airport;
 
 import java.util.HashMap;
 
-import enstabretagne.SimEntity.airplane.airplaneIds;
 import enstabretagne.SimEntity.airplane.airplaneInit;
 import enstabretagne.simulation.components.SimInitParameters;
 
@@ -19,13 +18,13 @@ public class airportInit extends SimInitParameters {
 	/**
 	 * 
 	 */
-	HashMap<airplaneIds, airplaneInit> airplanesinit;
+	HashMap<String, airplaneInit> airplanesinit;
 	
-	public HashMap<airplaneIds, airplaneInit> getAirplanesinit() {
+	public HashMap<String, airplaneInit> getAirplanesinit() {
 		return airplanesinit;
 	}
 	
-	public airportInit(HashMap<airplaneIds, airplaneInit> airplanesinit) {
+	public airportInit(HashMap<String, airplaneInit> airplanesinit) {
 		this.airplanesinit = airplanesinit;
 	}
 

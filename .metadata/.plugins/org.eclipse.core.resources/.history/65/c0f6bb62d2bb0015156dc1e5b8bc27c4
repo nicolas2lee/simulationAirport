@@ -1,0 +1,37 @@
+package simulation.airport.SEntity.Airplane;
+
+
+
+import simulation.airport.SimEngine;
+import simulation.airport.SimEntity;
+
+
+public class Airplane extends SimEntity {
+
+	private String is;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Airplane(SimEngine engine) {
+		super(engine);
+	}
+	
+	/*
+	public void sayHelloTo(Airplane other) {
+		System.out.println("[" + name + "] Hello " + other + " !");
+	}
+*/
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	
+	
+}

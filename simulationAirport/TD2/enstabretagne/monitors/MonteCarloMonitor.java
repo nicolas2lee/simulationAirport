@@ -28,6 +28,7 @@ public void run(SimScenario s, long replique) {
 	MoreRandom.globalSeed = replique;
 	
 	//Initialisation du scénario et tracé de la valeur de la graine dans l'Init du scénario
+	//System.out.println(new SimScenarioInit(MoreRandom.globalSeed,replique));
 	getCurrentScenario().Initialize(new SimScenarioInit(MoreRandom.globalSeed,replique));
 	getCurrentScenario().activate();
 	engine.simulate();				

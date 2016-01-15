@@ -1,0 +1,23 @@
+package simulation.airport.Scenario;
+
+import enstabretagne.base.time.LogicalDateTime;
+import simulation.airport.SimEngine;
+
+
+
+
+
+public class AirportScenario {
+	
+
+	
+	
+	
+	public AirportScenario(SimEngine engine,
+			String scenarioId, 
+			LogicalDateTime start, LogicalDateTime end) {
+	
+		
+	}
+}
+	

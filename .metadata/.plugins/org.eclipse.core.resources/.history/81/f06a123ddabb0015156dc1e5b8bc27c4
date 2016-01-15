@@ -1,0 +1,5 @@
+package simulation.airport.SimEvent;
+
+public interface IDepartEvent extends SimEvent{
+
+}

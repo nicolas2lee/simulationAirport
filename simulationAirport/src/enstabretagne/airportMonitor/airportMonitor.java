@@ -12,7 +12,7 @@ import enstabretagne.Scenario.airportScenario;
 import enstabretagne.Scenario.airportScenarioFeatures;
 import enstabretagne.SimEntity.airplane.StatutAirplane;
 import enstabretagne.SimEntity.airplane.airplaneFeature;
-import enstabretagne.SimEntity.airplane.airplaneIds;
+
 import enstabretagne.SimEntity.airplane.airplaneInit;
 import enstabretagne.SimEntity.airport.airportFeatures;
 import enstabretagne.SimEntity.airport.airportInit;
@@ -49,16 +49,7 @@ public class airportMonitor extends MonteCarloMonitor {
 	public static void main(String[] args) {
 		// It is the main entry for the zhole project
 		
-		/*
-		 * create begin and end time
-		 * create context for launch the simulation
-		 * create logger
-		 * create xlsx(excel) parser
-		 * create weather
-		 * create airport environment
-		 * 
-		 * for each simulation context
-		 * need to add airplanes*/
+	
 		System.out.println("Simulation of airport begins at "+ Instant.now());
 		
 		//Configuration requise pour le logger
@@ -101,26 +92,30 @@ public class airportMonitor extends MonteCarloMonitor {
 	
 		List<airplaneFeature> l;
 		
-		HashMap<airplaneIds,airplaneInit> i;
+		HashMap<String,airplaneInit> i;
 	
 		//Création des Scénarios
 		//periodeArriveeClientsEnMinutes=12;
 		
 		//The first context
 		l = new ArrayList<airplaneFeature>();
-		airplaneIds flght_0 = new airplaneIds("A00");
-		airplaneIds flght_1 = new airplaneIds("A01");
-		airplaneIds flght_2 = new airplaneIds("A02");
+		String flght_0 = "A00";
+		String flght_1 = "A01";
+		String flght_2 = "A02";
+		
+		String flght_3 = "A03";
+		String flght_4 = "A04";
+		String flght_5 = "A05";
 		
 		l.add(new airplaneFeature(flght_0,StatutAirplane.Depart));
 		l.add(new airplaneFeature(flght_1,StatutAirplane.Depart));
 		l.add(new airplaneFeature(flght_2,StatutAirplane.Arrive));
 		
 		
-		i = new HashMap<airplaneIds,airplaneInit>();
-		i.put(flght_0,new airplaneInit());
-		i.put(flght_1,new airplaneInit());
-		i.put(flght_2,new airplaneInit());
+		i = new HashMap<String,airplaneInit>();
+		i.put(flght_3,new airplaneInit());
+		i.put(flght_4,new airplaneInit());
+		i.put(flght_5,new airplaneInit());
 		
 		nbTerminal=1;
 		nbGate=4;
@@ -130,7 +125,7 @@ public class airportMonitor extends MonteCarloMonitor {
 				"ScenarioAirport1", 
 				beginFlightTime, 
 				endFlightTime,
-				20,10,40,2,//normal_time(Mon-Fri 10-17), busy_time(Mon-Fri 7-10,17-19), weekend_time(Sat,sun), coef of bad weather
+				60.0/20,60.0/10,60.0/40,2,//normal_time(Mon-Fri 10-17), busy_time(Mon-Fri 7-10,17-19), weekend_time(Sat,sun), coef of bad weather
 				new airportFeatures("Aiport alpha", nbTerminal, nbGate, nbTrack, l),
 				new airportInit(i),
 				new CategoriesGenerator(0, periodArrivePlaneInMins*10, 10, 3, 2)

@@ -1,0 +1,14 @@
+package simulation.airport.SimEvent;
+
+public class DepartEvent implements IDepartEvent{
+
+	@Override
+	public SimEvent NotifDepart() {
+		// TODO Auto-generated method stub
+		
+		return SimEvent;
+	}
+
+	
+
+}

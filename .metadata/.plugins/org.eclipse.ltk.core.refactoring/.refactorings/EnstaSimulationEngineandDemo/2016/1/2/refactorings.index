@@ -1,1 +1,17 @@
 1452720296856	Copy compilation unit
+1452890456334	Delete elements
+1452890510273	Rename package 'airport'
+1452890523218	Rename package 'airport.ensta.bretagne'
+1452892573396	Copy package
+1452892621872	Copy packages
+1452892699426	Delete elements
+1452892720565	Delete element
+1452892748130	Copy compilation units
+1452892933089	Rename package 'simulation.airport.airplane'
+1452893027555	Rename package 'simulation.airport.SimEntity.airplane'
+1452893217170	Delete element
+1452893309213	Rename package 'simulation.airport.SimEntity.Airplane'
+1452893500024	Rename type 'AirplaneScenario'
+1452893506763	Rename type 'AirpotScenario'
+1452898342754	Delete element
+1452898559216	Rename type 'DepartEvent'

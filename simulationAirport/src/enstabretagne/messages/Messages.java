@@ -10,4 +10,6 @@ package enstabretagne.messages;
 public class Messages {
 
 	public static final String BeginPeriodNewAirplane = "The begin time of a new arrival airplane";
+	public static final String EndPeriodNewAirplane = "The end time of a new arrival airplane";
+	
 }

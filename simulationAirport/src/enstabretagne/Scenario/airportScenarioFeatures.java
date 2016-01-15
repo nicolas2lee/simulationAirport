@@ -61,6 +61,33 @@ public class airportScenarioFeatures extends SimFeatures{
 	private CategoriesGenerator arrivalDelayRecordingCatGen;
 	private CategoriesGenerator delaiAttenteRecordingCatGen;
 	private double frequenceArriveAirplanePerHour_normal;
+	public double getFrequenceArriveAirplanePerHour_normal() {
+		return frequenceArriveAirplanePerHour_normal;
+	}
+	public void setFrequenceArriveAirplanePerHour_normal(
+			double frequenceArriveAirplanePerHour_normal) {
+		this.frequenceArriveAirplanePerHour_normal = frequenceArriveAirplanePerHour_normal;
+	}
+	public double getFrequenceArriveAirplanePerHour_inBusyHour() {
+		return frequenceArriveAirplanePerHour_inBusyHour;
+	}
+	public void setFrequenceArriveAirplanePerHour_inBusyHour(
+			double frequenceArriveAirplanePerHour_inBusyHour) {
+		this.frequenceArriveAirplanePerHour_inBusyHour = frequenceArriveAirplanePerHour_inBusyHour;
+	}
+	public double getFrequenceArriveAirplanePerHour_inWeekEnd() {
+		return frequenceArriveAirplanePerHour_inWeekEnd;
+	}
+	public void setFrequenceArriveAirplanePerHour_inWeekEnd(
+			double frequenceArriveAirplanePerHour_inWeekEnd) {
+		this.frequenceArriveAirplanePerHour_inWeekEnd = frequenceArriveAirplanePerHour_inWeekEnd;
+	}
+	public int getCoefDelayBadWeather() {
+		return coefDelayBadWeather;
+	}
+	public void setCoefDelayBadWeather(int coefDelayBadWeather) {
+		this.coefDelayBadWeather = coefDelayBadWeather;
+	}
 	private double frequenceArriveAirplanePerHour_inBusyHour;
 	private double frequenceArriveAirplanePerHour_inWeekEnd;
 	private int coefDelayBadWeather;

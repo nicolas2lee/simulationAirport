@@ -1,0 +1,9 @@
+package simulation.airport.SEntity.Airplane;
+
+public class NotifDepart {
+
+	public NotifDepart() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

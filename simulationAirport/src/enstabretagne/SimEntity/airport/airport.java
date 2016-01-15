@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import enstabretagne.SimEntity.airplane.airplane;
 import enstabretagne.SimEntity.airplane.airplaneFeature;
-import enstabretagne.SimEntity.airplane.airplaneIds;
+
 import enstabretagne.base.utility.IRecordable;
 import enstabretagne.simulation.components.IEntity;
 import enstabretagne.simulation.components.SimEntity;
@@ -22,15 +22,16 @@ public class airport extends SimEntity implements IRecordable {
 	/**
 	 * 
 	 */
-	HashMap<airplaneIds, airplane> listAirplanes;
+	HashMap<String, airplane> listAirplanes;
 	public airport(SimEngine engine, String name, SimFeatures features) {
 
 		super(engine, name, features);
 		airportFeatures af = (airportFeatures) features;
 		//open time and close time need to be added after
 		listAirplanes = new HashMap<>();
+		
 		for (airplaneFeature apf : af.getAirplaneFeatures() ){
-			airplane air = (airplane) createChild(engine, airplane.class, apf.getAirplaneId().toString(), apf);
+			airplane air = (airplane) createChild(engine, airplane.class, apf.getAirplaneId().toString(), (SimFeatures)apf);
 			listAirplanes.put(air.getAirplaneId(), air);
 		}
 		

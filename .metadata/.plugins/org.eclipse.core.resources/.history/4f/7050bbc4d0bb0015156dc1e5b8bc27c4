@@ -1,0 +1,21 @@
+package simulation.airport.Scenario;
+
+
+
+
+
+public class AirportScenario {
+	
+
+	
+	
+	
+	public AirportScenario(SimEngine engine,
+			String scenarioId, 
+			LogicalDateTime start, LogicalDateTime end) {
+		//super(engine, scenarioId,  features, start, end);
+		//System.out.println("====================the simulation data is "+engine.SimulationDate()+"===========");
+
+		
+	}
+	

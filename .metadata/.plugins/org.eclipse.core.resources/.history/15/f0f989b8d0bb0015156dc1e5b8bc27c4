@@ -1,0 +1,23 @@
+package simulation.airport.Scenario;
+
+
+
+
+
+public class AirportScenario {
+	
+	private CategoriesGenerator arrivalDelayRecordingCatGen;
+	private MoreRandom random;
+	private LogicalDuration beginFlightTime;
+	private LogicalDuration endFlightTime;
+	
+	
+	public AirportScenario(SimEngine engine,
+			ScenarioId scenarioId, 
+			SimFeatures features,LogicalDateTime start, LogicalDateTime end) {
+		//super(engine, scenarioId,  features, start, end);
+		//System.out.println("====================the simulation data is "+engine.SimulationDate()+"===========");
+
+		
+	}
+	
