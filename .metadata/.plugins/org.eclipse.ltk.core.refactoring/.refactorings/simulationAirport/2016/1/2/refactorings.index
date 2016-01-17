@@ -3,3 +3,16 @@
 1452801388649	Rename type 'airportContext'
 1452801423643	Rename type 'airportContextFeatures'
 1452886773789	Delete element
+1452941265822	Rename type 'airplane'
+1452941278637	Rename type 'airplaneFeature'
+1452941290622	Rename type 'airplaneInit'
+1452941302184	Rename type 'airportScenarioFeatures'
+1452941309611	Rename type 'airportScenario'
+1452941321098	Rename type 'airportMonitor'
+1452941334248	Rename type 'airport'
+1452941345994	Rename type 'airportFeatures'
+1452941352502	Rename type 'airportInit'
+1452941376890	Rename type 'weather'
+1452941788662	Rename type 'StatutAirplane'
+1452944460933	Delete element
+1453066185506	Delete element

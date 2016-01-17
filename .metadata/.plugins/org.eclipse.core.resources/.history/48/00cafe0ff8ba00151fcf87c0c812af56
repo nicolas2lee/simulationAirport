@@ -1,9 +1,0 @@
-package enstabretagne.context;
-
-public class airportContext {
-
-	public airportContext() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

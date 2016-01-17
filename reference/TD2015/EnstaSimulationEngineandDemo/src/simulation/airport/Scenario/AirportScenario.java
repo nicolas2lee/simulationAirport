@@ -8,11 +8,6 @@ import simulation.airport.SEntity.Airplane.Airplane;
 import simulation.airport.SimEvent.ArriveEvent;
 
 
-
-
-
-
-
 public class AirportScenario {
 	
 	private SimEngine engine;

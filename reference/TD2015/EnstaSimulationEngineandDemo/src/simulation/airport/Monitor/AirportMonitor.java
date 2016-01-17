@@ -9,9 +9,9 @@ import simulation.airport.SEntity.Airplane.AirplaneStatus;
 import simulation.airport.Scenario.AirportScenario;
 import enstabretagne.base.time.LogicalDateTime;
 import enstabretagne.base.time.LogicalDuration;
-import enstabretagne.simulation.components.SimScenario;
 
-public class AirportMonitor {
+
+public class AirportMonitor extends SimpleSimMonitor{
 		
 	private static LogicalDateTime t(int n) {
 		String year = Integer.toString(n);

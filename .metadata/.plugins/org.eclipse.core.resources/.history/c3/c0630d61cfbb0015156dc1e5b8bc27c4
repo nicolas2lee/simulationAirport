@@ -1,9 +1,0 @@
-package simulation.airport.Scenario;
-
-public class AirpotScenario {
-
-	public AirpotScenario() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

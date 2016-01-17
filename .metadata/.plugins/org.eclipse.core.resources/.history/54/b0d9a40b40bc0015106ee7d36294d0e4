@@ -1,0 +1,5 @@
+package enstabretagne.SimEntity.airplane;
+
+public enum StateAirplane {
+
+}

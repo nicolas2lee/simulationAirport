@@ -5,6 +5,7 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="U:\semestre5\uv5.8\simulationAirport\reference\TD2015"/>
 			<item value="U:\semestre5\uv5.8\simulationAirport\reference\TD2015joggl"/>
 			<item value="U:\semestre5\uv5.8\TD2015\EnstaSimulationEngineandDemo"/>
 			<item value="U:\semestre5\uv5.8\simulationAirport\simulationAirport"/>
@@ -12,5 +13,13 @@
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
 		</list>
+	</section>
+	<section name="NewWizardAction">
+		<item value="org.eclipse.ui.wizards.new.project" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
+	</section>
+	<section name="BasicNewProjectResourceWizard">
 	</section>
 </section>

@@ -1,0 +1,6 @@
+package enstabretagne.SimEntity.airplane;
+
+public interface IAirplane {
+	public airport arriveAirport();
+	
+}

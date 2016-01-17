@@ -115,6 +115,8 @@ public class SimScenario extends SimEntity implements IScenario,IScenarioIdProvi
 		}
 		@Override
 		void processAction() {
+			System.out.println(e);
+			System.out.println(params);
 			e.Initialize(params);
 		}
 		

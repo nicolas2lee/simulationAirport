@@ -536,6 +536,7 @@ public class SimEngine implements ISimulationDateProvider,IScenarioIdProvider{
         /// </summary>
         void OnEventPosted(SimEvent ev)
         {
+        	
             if (ev.ScheduleDate().compareTo(simulationDate)<0)
                 if (!ev.IsWeak())
                 {

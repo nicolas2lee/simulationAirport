@@ -1,0 +1,94 @@
+package enstabretagne.SimEntity.airplane;
+
+import enstabretagne.SimEntity.airport.Airport;
+import enstabretagne.base.utility.IRecordable;
+import enstabretagne.simulation.components.IEntity;
+import enstabretagne.simulation.components.SimEntity;
+import enstabretagne.simulation.components.SimFeatures;
+import enstabretagne.simulation.components.SimInitParameters;
+import enstabretagne.simulation.core.SimEngine;
+
+public class Airplane extends SimEntity implements IAirplane, IRecordable{
+
+	String airplaneId ;
+	StateAirplane currnetState;
+	public Airplane(SimEngine engine, String name, SimFeatures features) {
+		super(engine, name , features);
+		
+		setStateAirplane(StateAirplane.Arrive);
+	}
+	
+	private void setStateAirplane(StateAirplane state) {
+		if (state.equals(StateAirplane.Arrive)){
+			
+		}
+		currnetState = state;
+		
+	}
+
+	public String getAirplaneId() {
+		return airplaneId;
+	}
+
+	public void setAirplaneId(String airplaneId) {
+		this.airplaneId = airplaneId;
+	}
+
+	
+
+	@Override
+	public String[] getTitles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getRecords() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getClassement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onParentSet() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void InitializeSimEntity(SimInitParameters init) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void AfterActivate(IEntity sender, boolean starting) {
+		arriveAirport();
+		
+	}
+
+	@Override
+	protected void BeforeDeactivating(IEntity sender, boolean starting) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Airport arriveAirport() {
+		// TODO Auto-generated method stub
+		System.out.println("arriveairport");
+		return null;
+	}
+
+	@Override
+	public StatusAirplane getStatusAirplane() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

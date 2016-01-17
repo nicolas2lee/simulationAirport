@@ -1,0 +1,7 @@
+package enstabretagne.SimEntity.airplane;
+
+public enum StateAirplane {
+	Arrive("Arrive"),
+	Depart("Depart");
+
+}

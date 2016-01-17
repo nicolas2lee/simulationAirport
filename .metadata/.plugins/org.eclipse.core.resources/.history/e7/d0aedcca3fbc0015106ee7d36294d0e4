@@ -1,0 +1,38 @@
+/**
+ * 
+ */
+package enstabretagne.SimEntity.airplane;
+
+import enstabretagne.simulation.components.SimFeatures;
+
+
+
+/**
+ * @author zhengta
+ *
+ */
+public class AirplaneFeature extends SimFeatures{
+
+	String airplaneId;
+	StatutAirplane statutAirplane;
+	
+	
+	
+	public String getAirplaneId() {
+		return airplaneId;
+	}
+
+	public StatutAirplane getCoiffeurStatut(){
+		return statutAirplane;
+	}
+	
+
+	
+	public AirplaneFeature(String airplaneId, StatutAirplane statut) {
+		super(airplaneId.toString());
+		this.airplaneId=airplaneId;
+		
+		this.statutAirplane=statut;
+		
+	}
+}

@@ -107,13 +107,16 @@ public abstract class SimObject {
     List<SimObjectActivationChangedEventHandler> simObjectActivationChangedListeners;
 	protected void activate() {
 	      // add local timeEvent to engine Event list
-	      for(SimEvent ev : timeEvents.keySet())
-	        engine.OnEventPosted(ev);
+	      for(SimEvent ev : timeEvents.keySet()){
+	    	 
+	    	  engine.OnEventPosted(ev);
+	      }
 
 	      // add local dynamic to engine Dynamic list if synchronized
 	      if (continuous != null)
 	        continuous.setIsActive(true);
 
+	      //System.out.println(simObjectActivationChangedListeners.size());
 	      // Fire event
 	      if (simObjectActivationChangedListeners.size()>0)
 	    	  simObjectActivationChangedListeners.forEach((l)->l.simObjectActivationChanged(this, true));		

@@ -1,0 +1,112 @@
+package enstabretagne.SimEntity.airplane;
+
+import enstabretagne.SimEntity.airport.Airport;
+import enstabretagne.base.utility.IRecordable;
+import enstabretagne.base.utility.Logger;
+import enstabretagne.messages.Messages;
+import enstabretagne.simulation.components.IEntity;
+import enstabretagne.simulation.components.SimEntity;
+import enstabretagne.simulation.components.SimFeatures;
+import enstabretagne.simulation.components.SimInitParameters;
+import enstabretagne.simulation.core.SimEngine;
+import enstabretagne.simulation.core.SimObject;
+import enstabretagne.simulation.core.SimObjectRequest;
+
+public class Airplane extends SimEntity implements IAirplane, IRecordable{
+
+	String airplaneId ;
+	StateAirplane currnetState;
+	SimObjectRequest opendAirportRequest;
+	public Airplane(SimEngine engine, String name, SimFeatures features) {
+		super(engine, name , features);
+		
+		setStateAirplane(StateAirplane.Arrive);
+		opendAirportRequest = new SimObjectRequest(){
+
+			@Override
+			public boolean filter(SimObject o) {
+				if (Airport.class.isAssignableFrom(o.getClass())){
+					Airport a = (Airport) o;
+					if (a.isOpened()){
+						return true;
+					}
+				}
+				return false;	
+			}
+		};
+	}
+	
+	private void setStateAirplane(StateAirplane state) {
+		if (state.equals(StateAirplane.Arrive)){
+
+		}
+		currnetState = state;
+		
+	}
+
+	public String getAirplaneId() {
+		return airplaneId;
+	}
+
+	public void setAirplaneId(String airplaneId) {
+		this.airplaneId = airplaneId;
+	}
+
+	
+
+	@Override
+	public String[] getTitles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getRecords() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getClassement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onParentSet() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void InitializeSimEntity(SimInitParameters init) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void AfterActivate(IEntity sender, boolean starting) {
+		arriveAirport();
+		
+	}
+
+	@Override
+	public Airport arriveAirport() {
+		Logger.Information(this, "arriveAirport", Messages.ArriveToAirport, this.getName());
+		
+		return null;
+	}
+
+	@Override
+	public StatusAirplane getStatusAirplane() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	protected void BeforeDeactivating(IEntity sender, boolean starting) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
