@@ -33,6 +33,10 @@ public class LogicalDuration implements Comparable<LogicalDuration> {
 		return Math.round(logicalDuration.getSeconds()/60);
 	}
 	
+	public int getHours(){
+		return Math.round(logicalDuration.getSeconds()/3600);
+	}
+	
 	public static LogicalDuration Max(LogicalDuration d1,LogicalDuration d2)
 	{
 		if(d1.logicalDuration==null)//infini

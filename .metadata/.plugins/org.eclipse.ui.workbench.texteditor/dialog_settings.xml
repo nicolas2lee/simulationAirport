@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="After" key="selection"/>
+		<item value="currnetState" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="currnetState"/>
 			<item value="after"/>
 			<item value="arrivalDelayRecordingCatGen"/>
 			<item value="postDate"/>
@@ -15,7 +16,6 @@
 			<item value="Aiport alpha"/>
 			<item value="start"/>
 			<item value="simulate"/>
-			<item value="createChild"/>
 		</list>
 		<list key="replacehistory">
 		</list>

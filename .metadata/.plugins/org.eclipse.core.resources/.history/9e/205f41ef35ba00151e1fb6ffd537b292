@@ -1,9 +1,0 @@
-package enstabretagne.SimEntity.airplane;
-
-public class airplaneIds {
-
-	public airplaneIds() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

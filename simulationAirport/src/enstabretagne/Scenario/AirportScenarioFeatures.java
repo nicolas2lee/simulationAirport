@@ -40,27 +40,56 @@ public class AirportScenarioFeatures extends SimFeatures{
 	public void setAirportinit(AirportInit airportinit) {
 		this.airportinit = airportinit;
 	}
-	public CategoriesGenerator getArrivalDelayRecordingCatGen() {
-		return arrivalDelayRecordingCatGen;
-	}
-	public void setArrivalDelayRecordingCatGen(
-			CategoriesGenerator arrivalDelayRecordingCatGen) {
-		this.arrivalDelayRecordingCatGen = arrivalDelayRecordingCatGen;
-	}
-	public CategoriesGenerator getDelaiAttenteRecordingCatGen() {
-		return delaiAttenteRecordingCatGen;
-	}
-	public void setDelaiAttenteRecordingCatGen(
-			CategoriesGenerator delaiAttenteRecordingCatGen) {
-		this.delaiAttenteRecordingCatGen = delaiAttenteRecordingCatGen;
-	}
+
+
 	private String beginFlightTime;
 	private String endFlightTime;
 	private AirportFeatures apFeatures;
 	private AirportInit airportinit;
 	
-	private CategoriesGenerator arrivalDelayRecordingCatGen;
-	private CategoriesGenerator delaiAttenteRecordingCatGen;
+	public CategoriesGenerator getArrivalDelayRecordingCatGen7_10() {
+		return arrivalDelayRecordingCatGen7_10;
+	}
+	public void setArrivalDelayRecordingCatGen7_10(
+			CategoriesGenerator arrivalDelayRecordingCatGen7_10) {
+		this.arrivalDelayRecordingCatGen7_10 = arrivalDelayRecordingCatGen7_10;
+	}
+	public CategoriesGenerator getArrivalDelayRecordingCatGen10_17() {
+		return arrivalDelayRecordingCatGen10_17;
+	}
+	public void setArrivalDelayRecordingCatGen10_17(
+			CategoriesGenerator arrivalDelayRecordingCatGen10_17) {
+		this.arrivalDelayRecordingCatGen10_17 = arrivalDelayRecordingCatGen10_17;
+	}
+	public CategoriesGenerator getArrivalDelayRecordingCatGen17_19() {
+		return arrivalDelayRecordingCatGen17_19;
+	}
+	public void setArrivalDelayRecordingCatGen17_19(
+			CategoriesGenerator arrivalDelayRecordingCatGen17_19) {
+		this.arrivalDelayRecordingCatGen17_19 = arrivalDelayRecordingCatGen17_19;
+	}
+	public CategoriesGenerator getArrivalDelayRecordingCatGen19_22() {
+		return arrivalDelayRecordingCatGen19_22;
+	}
+	public void setArrivalDelayRecordingCatGen19_22(
+			CategoriesGenerator arrivalDelayRecordingCatGen19_22) {
+		this.arrivalDelayRecordingCatGen19_22 = arrivalDelayRecordingCatGen19_22;
+	}
+	public CategoriesGenerator getArrivalDelayRecordingCatGenWeekend() {
+		return arrivalDelayRecordingCatGenWeekend;
+	}
+	public void setArrivalDelayRecordingCatGenWeekend(
+			CategoriesGenerator arrivalDelayRecordingCatGenWeekend) {
+		this.arrivalDelayRecordingCatGenWeekend = arrivalDelayRecordingCatGenWeekend;
+	}
+
+
+	private CategoriesGenerator arrivalDelayRecordingCatGen7_10;
+	private CategoriesGenerator arrivalDelayRecordingCatGen10_17;
+	private CategoriesGenerator arrivalDelayRecordingCatGen17_19;
+	private CategoriesGenerator arrivalDelayRecordingCatGen19_22;
+	private CategoriesGenerator arrivalDelayRecordingCatGenWeekend;
+	
 	
 	private double frequenceArriveAirplanePerHour_normal;
 	private double frequenceArriveAirplanePerHour_inBusyHour;
@@ -104,7 +133,12 @@ public class AirportScenarioFeatures extends SimFeatures{
 			double frequenceArriveAirplanePerHour_inWeekEnd,
 			int coefDelayBadWeather,
 			AirportFeatures apFeatures,
-			AirportInit airportinit, CategoriesGenerator arrivalDelayRecordingCatGen) {
+			AirportInit airportinit, 
+			CategoriesGenerator arrivalDelayRecordingCatGen7_10,
+			CategoriesGenerator arrivalDelayRecordingCatGen10_17,
+			CategoriesGenerator arrivalDelayRecordingCatGen17_19,
+			CategoriesGenerator arrivalDelayRecordingCatGen19_22,
+			CategoriesGenerator arrivalDelayRecordingCatGenWeekend) {
 		super(id);
 		
 		this.beginFlightTime = beginFlightTime;
@@ -115,7 +149,11 @@ public class AirportScenarioFeatures extends SimFeatures{
 		this.coefDelayBadWeather=coefDelayBadWeather;
 		this.apFeatures = apFeatures;
 		this.airportinit = airportinit;
-		this.arrivalDelayRecordingCatGen = arrivalDelayRecordingCatGen;
+		this.arrivalDelayRecordingCatGen7_10 = arrivalDelayRecordingCatGen7_10;
+		this.arrivalDelayRecordingCatGen10_17 = arrivalDelayRecordingCatGen10_17;
+		this.arrivalDelayRecordingCatGen17_19 = arrivalDelayRecordingCatGen17_19;
+		this.arrivalDelayRecordingCatGen19_22 = arrivalDelayRecordingCatGen19_22;
+		this.arrivalDelayRecordingCatGenWeekend = arrivalDelayRecordingCatGenWeekend;
 		//this.delaiAttenteRecordingCatGen = delaiAttenteRecordingCatGen;
 	}
 

@@ -4,7 +4,30 @@ import enstabretagne.SimEntity.airport.Airport;
 
 public interface IAirplane {
 	public Airport arriveAirport();
-	public StatusAirplane getStatusAirplane();
+	public void waitTrackAndTW1(Airport a);
+	public void closeToAirport(Airport a);
+	public void landing(Airport a);
+	public void rollingToGate(Airport a);
+	public void notifyEndArrive(Airport a);
+	public void UnloadingPassagersAndPreparing(Airport a);
+	public void loadingPassagers(Airport a);
+	public void notifyBeginDepart(Airport a);
+	public void WaitForTW2(Airport a);
+	public void rollingToTrack(Airport a);
+	public void waitForTrackToDepart(Airport a);
+	public void takeoff(Airport a);
+	public void notifyEndDepart(Airport a);
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public StatusAirplane getStatusAirplane();
 	
 }

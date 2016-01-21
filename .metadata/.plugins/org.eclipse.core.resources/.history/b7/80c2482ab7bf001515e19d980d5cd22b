@@ -1,0 +1,15 @@
+package enstabretagne.SimEntity.airplane;
+
+public enum StateAirplane {
+	Arrived("Arrived"),
+	NotifedBeginArrive("NotifedBeginArrive"),
+	WaitForFIFO("WaitForFIFO"),
+	Depart("Depart");
+	
+	
+	private String StateAirplane;
+	private StateAirplane(String state){
+		this.StateAirplane=state;
+	}
+
+}

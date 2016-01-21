@@ -32,6 +32,47 @@ public class Airport extends SimEntity implements IRecordable {
 	LogicalDuration airportOpened;
 	LogicalDuration airportClosed;
 	
+	boolean TW1Full;
+	boolean TW2Full;
+
+	
+
+	public boolean isTW2Full() {
+		return TW2Full;
+	}
+
+
+	public void setTW2Full(boolean tW2Full) {
+		TW2Full = tW2Full;
+	}
+
+
+	public boolean isTW1Full() {
+		return TW1Full;
+	}
+
+
+	public void setTW1Full(boolean tW1Full) {
+		TW1Full = tW1Full;
+	}
+
+
+
+
+	boolean trackFull;
+	
+	public boolean isTrackFull() {
+		return trackFull;
+	}
+
+
+	public void setTrackFull(boolean trackFull) {
+		this.trackFull = trackFull;
+	}
+
+
+
+
 	boolean isOpened;
 	
 	public LinkedList<Airplane> getFIFO() {
@@ -51,6 +92,10 @@ public class Airport extends SimEntity implements IRecordable {
 		//open time and close time need to be added after
 		initialAirplanes = new HashMap<>();
 		FIFO = new LinkedList<>();
+		
+		TW1Full=false;
+		TW2Full=false;
+		trackFull=false; 
 		
 		airportOpened = LogicalDuration.fromString(af.getOpenhour());
 		airportClosed = LogicalDuration.fromString(af.getClosedhour());

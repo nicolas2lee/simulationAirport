@@ -16,7 +16,6 @@
 <fullyQualifiedTypeName name="enstabretagne.SimEntity.airplane.airplane"/>
 <fullyQualifiedTypeName name="enstabretagne.SimEntity.airplane.StatutAirplane"/>
 <fullyQualifiedTypeName name="simulation.airport.SimEngine"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="simulation.airport.SEntity.Airplane.Airplane"/>
 <fullyQualifiedTypeName name="simulation.airport.SEntity.Airplane.AirplaneStatus"/>
 <fullyQualifiedTypeName name="simulation.airport.SimEvent.SimEvent"/>
@@ -34,4 +33,5 @@
 <fullyQualifiedTypeName name="enstabretagne.messages.Messages"/>
 <fullyQualifiedTypeName name="enstabretagne.base.utility.CategoriesGenerator"/>
 <fullyQualifiedTypeName name="enstabretagne.SimEntity.airplane.AirplaneInit"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

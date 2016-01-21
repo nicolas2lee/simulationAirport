@@ -1,5 +1,7 @@
 package enstabretagne.Scenario;
 
+import java.time.DayOfWeek;
+
 import enstabretagne.SimEntity.airplane.AirplaneInit;
 import enstabretagne.SimEntity.airplane.StatusAirplane;
 import enstabretagne.SimEntity.airplane.Airplane;
@@ -23,20 +25,27 @@ import enstabretagne.simulation.core.SimEvent;
 
 public class AirportScenario extends SimScenario {
 	
-	private CategoriesGenerator arrivalDelayRecordingCatGen;
+	
 	private MoreRandom random;
 	private LogicalDuration beginFlightTime;
 	private LogicalDuration endFlightTime;
 	private AirportScenarioFeatures asf;
+	private LogicalDateTime currentDateTime;
 	
+	public LogicalDateTime getCurrentDateTime() {
+		return currentDateTime;
+	}
+
+	public void setCurrentDateTime(LogicalDateTime currentDateTime) {
+		this.currentDateTime = currentDateTime;
+	}
+
 	public AirportScenario(SimEngine engine,
 			ScenarioId scenarioId, 
 			SimFeatures features,LogicalDateTime start, LogicalDateTime end) {
 		super(engine, scenarioId,  features, start, end);
 		//System.out.println("====================the simulation data is "+engine.SimulationDate()+"===========");
 		asf = (AirportScenarioFeatures) features;
-		arrivalDelayRecordingCatGen = asf.getArrivalDelayRecordingCatGen();
-		
 		random = new MoreRandom(MoreRandom.globalSeed);
 		
 		//lamda_arrive_airplane_normal = 
@@ -81,7 +90,10 @@ public class AirportScenario extends SimScenario {
 	class endArriveAirplane extends SimEvent {
 		@Override
 		public void Process() {			
-			Post(new beginArriveAirplane(),getCurrentLogicalDate().truncateToDays().add(LogicalDuration.ofDay(1).add(beginFlightTime)));			
+			System.out.println("==========="+getCurrentLogicalDate().truncateToDays()+"==================");
+			LogicalDateTime d=getCurrentLogicalDate().truncateToDays().add(LogicalDuration.ofDay(1).add(beginFlightTime));
+			setCurrentDateTime(d);
+			Post(new beginArriveAirplane(),d);			
 			Logger.Information(this.Owner(), "endArriveAirplane", Messages.EndPeriodNewAirplane);
 		}		
 	}
@@ -111,9 +123,22 @@ public class AirportScenario extends SimScenario {
 		}
 		
 	}
+	
+	public double getFrequenceArriveAiplanePerHour(LogicalDateTime t){
+		DayOfWeek d=t.getDayOfWeek();
+		LogicalDuration hour = t.truncateToHours().soustract(t.truncateToDays());
+		if ((d.toString()!= DayOfWeek.SATURDAY.toString()) && (d.toString()!= DayOfWeek.SUNDAY.toString())){
+			return asf.getFrequenceArriveAirplanePerHour_inWeekEnd();
+		}else{
+			if ((hour.getHours()>6 && hour.getHours()<10) || (hour.getHours()>16 && hour.getHours()<19)){
+				return asf.getFrequenceArriveAirplanePerHour_inBusyHour();
+			}
+			return asf.getFrequenceArriveAirplanePerHour_normal();
+		}
+	}
+	
 	LogicalDateTime getNextTimeAirplane() {
-		//need to calculate lamda
-		double lamda = asf.getFrequenceArriveAirplanePerHour_normal()/3600;
+		double lamda = getFrequenceArriveAiplanePerHour(getCurrentDateTime())/3600;
 		double d=random.nextExp(lamda);
 		Logger.Data(new VerifDistribRecord(d));
 		

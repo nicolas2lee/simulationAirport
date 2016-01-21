@@ -5,16 +5,13 @@
 */
 package enstabretagne.base.time;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoUnit;
 
 import enstabretagne.base.messages.MessagesSimEngine;
-import enstabretagne.base.models.environment.Environment;
 import enstabretagne.base.utility.Logger;
 import enstabretagne.base.utility.Settings;
 
@@ -92,6 +89,10 @@ public class LogicalDateTime implements Comparable<LogicalDateTime>{
 
 	public LogicalDateTime truncateToMinutes() {
 		return new LogicalDateTime(logicalDate.truncatedTo(ChronoUnit.MINUTES));
+	}
+	
+	public DayOfWeek getDayOfWeek() {
+		return logicalDate.getDayOfWeek();
 	}
 
 	@Override

@@ -121,7 +121,8 @@ public class AirportMonitor extends MonteCarloMonitor {
 		nbTerminal=1;
 		nbGate=4;
 		nbTrack=1;
-		int periodArrivePlaneInMins = 20;
+		
+		int max_airplane=nbGate+nbTrack+1;
 		asf = new AirportScenarioFeatures(
 				"ScenarioAirport1", 
 				beginFlightTime, 
@@ -129,10 +130,18 @@ public class AirportMonitor extends MonteCarloMonitor {
 				60.0/20,60.0/10,60.0/40,2,//normal_time(Mon-Fri 10-17), busy_time(Mon-Fri 7-10,17-19), weekend_time(Sat,sun), coef of bad weather
 				//int frequenceObservationSizeOfFIFO,int nbAirplaneMax
 				
-				new AirportFeatures("Aiport alpha",20,nbGate+nbTrack, nbTerminal, nbGate, nbTrack,beginFlightTime,endFlightTime, initialAirplanes),
+				new AirportFeatures("Aiport alpha",20,max_airplane, nbTerminal, nbGate, nbTrack,beginFlightTime,endFlightTime, initialAirplanes),
 				new AirportInit(i),
-				new CategoriesGenerator(0, periodArrivePlaneInMins*10, 10, 3, 2)
-				//new CategoriesGenerator(0, vitesseDeCoupe*5, 50, 3, 2)
+				//7H~10H
+				new CategoriesGenerator(0, 10*18, 18, 3, 2),
+				//10H~17H
+				new CategoriesGenerator(10*18, 20*21+10*18, 21, 3, 2),
+				//17H~19H
+				new CategoriesGenerator(20*21+10*18, 20*21+10*18+10*12, 12, 3, 2),
+				//19H~22H
+				new CategoriesGenerator(20*21+10*18+10*12, 20*21+10*18+10*12+20*9, 9, 3, 2),
+				//weekend
+				new CategoriesGenerator(0, 40*22, 22, 3, 2)
 				);
 		
 		listeScenario.add(new AirportScenario(
