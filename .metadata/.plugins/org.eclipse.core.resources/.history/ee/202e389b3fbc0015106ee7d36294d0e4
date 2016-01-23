@@ -1,5 +1,0 @@
-package enstabretagne.SimEntity.airplane;
-
-public interface IAirplane {
-
-}

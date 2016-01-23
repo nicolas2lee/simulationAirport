@@ -68,7 +68,7 @@ public class AirportMonitor extends MonteCarloMonitor {
 		
 		//Déclaration des données qui serviront à l'initialisation du scénario
 		LogicalDateTime start = new LogicalDateTime("01/09/2014 06:00");
-		int nbDaysOfSimulation = 90;
+		int nbDaysOfSimulation = 3;
 
 		String beginFlightTime="07:00";
 		String endFlightTime="22:00";
@@ -135,11 +135,11 @@ public class AirportMonitor extends MonteCarloMonitor {
 				//7H~10H
 				new CategoriesGenerator(0, 10*18, 18, 3, 2),
 				//10H~17H
-				new CategoriesGenerator(10*18, 20*21+10*18, 21, 3, 2),
+				new CategoriesGenerator(0, 20*21, 21, 3, 2),
 				//17H~19H
-				new CategoriesGenerator(20*21+10*18, 20*21+10*18+10*12, 12, 3, 2),
+				new CategoriesGenerator(0, 10*12, 12, 3, 2),
 				//19H~22H
-				new CategoriesGenerator(20*21+10*18+10*12, 20*21+10*18+10*12+20*9, 9, 3, 2),
+				new CategoriesGenerator(0, 20*9, 9, 3, 2),
 				//weekend
 				new CategoriesGenerator(0, 40*22, 22, 3, 2)
 				);
@@ -151,6 +151,8 @@ public class AirportMonitor extends MonteCarloMonitor {
 				start,
 				start.add(LogicalDuration.ofDay(nbDaysOfSimulation))
 		));
+	//	System.out.println("==================");
+	//	System.out.println(new CategoriesGenerator(0, 10*18, 18, 3, 2));
 		
 		sm.run(listeScenario, repliqueNumber);
 		sm.terminate(false);

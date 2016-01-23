@@ -1,9 +1,0 @@
-package simulation.airport.Monitor;
-
-public class AirportMonitor {
-
-	public AirportMonitor() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

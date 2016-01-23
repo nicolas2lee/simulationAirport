@@ -1,9 +1,0 @@
-package simulation.airport.SimEvent;
-
-public class DepartEvent {
-
-	class NotifDepart extends SimEvent{
-		
-	}
-
-}

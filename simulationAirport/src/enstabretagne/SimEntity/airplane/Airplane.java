@@ -3,6 +3,9 @@ package enstabretagne.SimEntity.airplane;
 import java.util.List;
 
 import enstabretagne.SimEntity.airport.Airport;
+import enstabretagne.base.math.MoreRandom;
+import enstabretagne.base.time.LogicalDateTime;
+import enstabretagne.base.time.LogicalDuration;
 import enstabretagne.base.utility.IRecordable;
 import enstabretagne.base.utility.Logger;
 import enstabretagne.messages.Messages;
@@ -11,19 +14,31 @@ import enstabretagne.simulation.components.SimEntity;
 import enstabretagne.simulation.components.SimFeatures;
 import enstabretagne.simulation.components.SimInitParameters;
 import enstabretagne.simulation.core.SimEngine;
+import enstabretagne.simulation.core.SimEvent;
 import enstabretagne.simulation.core.SimObject;
 import enstabretagne.simulation.core.SimObjectRequest;
 
 public class Airplane extends SimEntity implements IAirplane, IRecordable{
 
+	MoreRandom random;
 	String airplaneId ;
 	StateAirplane currnetState;
+	Airport myAirport;
+	public Airport getMyAirport() {
+		return myAirport;
+	}
+
+	public void setMyAirport(Airport myAirport) {
+		this.myAirport = myAirport;
+	}
+
 	SimObjectRequest openedAirportRequest;
 	SimObjectRequest airplaneClosedToAirportRequest;
 	
 	public Airplane(SimEngine engine, String name, SimFeatures features) {
 		super(engine, name , features);
 		
+		random = new MoreRandom(MoreRandom.globalSeed);
 		setAirplaneState(StateAirplane.Arriving);
 		openedAirportRequest = new SimObjectRequest(){
 
@@ -55,7 +70,15 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		};
 	}
 	
+	LogicalDateTime timeEntryWaitTrackList;
+	LogicalDateTime timeOutWaitTrackList;
 	private void setAirplaneState(StateAirplane state) {
+		if (state.equals(StateAirplane.WaitForTW1AndTrack) ){
+			timeEntryWaitTrackList=(LogicalDateTime) getCurrentLogicalDate().getCopy();
+		}
+		if (state.equals(StateAirplane.CloseToAirport)){
+			timeOutWaitTrackList = (LogicalDateTime) getCurrentLogicalDate().getCopy();
+		}
 		currnetState = state;
 	}
 
@@ -122,46 +145,84 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 	@Override
 	public Airport arriveAirport() {
 		Airport a = findOpendAirport();
+		setMyAirport(a);
+		//System.out.println("==========================="+a+"======================");
 		if (a!=null){
 			setAirplaneState(StateAirplane.NotifyBeginArrive);
 			Logger.Information(this, "NotifyBeginArrive", Messages.NotifyBeginArrive, this.getName());
-			
 			waitTrackAndTW1(a);
 			return a;
 			
 		}else{
+			Post(new Departing(),getCurrentLogicalDate());
 			return null;
 		}
 	}
 	
 	@Override
 	public void waitTrackAndTW1(Airport a) {
-		
-		while (a.isTrackFull() && a.isTW1Full()){
+		if (a.isTrackFull() && a.isTW1Full()){
 			setAirplaneState(StateAirplane.WaitForTW1AndTrack);
+			a.getWaitTrackList().add(this);
+			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+			System.out.println(a.getWaitTrackList());
+			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
 			Logger.Information(this, "WaitForTW1AndTrack", Messages.WaitForTW1AndTrack, this.getName());
-			//return true;
-			//need to add wait time 
-			//waitAPeriod();
+		
+		}else{
+			//a.getWaitTrackList().remove(this);
+			closeToAirport(a);
 		}
-		closeToAirport(a);
 	}
 
 	@Override
 	public void closeToAirport(Airport a) {
 		setAirplaneState(StateAirplane.CloseToAirport);
+		System.out.println("====================================");
+		System.out.println("aiport's track is full "+a.isTrackFull());
+		System.out.println("aiport's TW1 is full "+a.isTW1Full());
+		System.out.println(a);
+		System.out.println(this);
+		System.out.println(a.getWaitTrackList());
+		a.getWaitTrackList().remove(this);
+		System.out.println(a.getWaitTrackList());
+		System.out.println("====================================");
+		a.setTrackFull(true);
 		Logger.Information(this, "CloseToAirport", Messages.CloseToAirport, this.getName());
-		landing(a);
+		//how to add 2~5min 120~300s
+		double d=random.nextDouble()*180+120;
+		LogicalDuration t = LogicalDuration.ofSeconds(d);
+		Post(new Landing(),getCurrentLogicalDate().add(t));
+
+		//Logger.Information(this, function, message, args);
 	}
 	
+	/*
 	@Override
 	public void landing(Airport a) {
 		a.setTrackFull(true);
 		setAirplaneState(StateAirplane.Landing);
 		Logger.Information(this, "Landing", Messages.Landing, this.getName());
 		rollingToGate(a);
+	}*/
+	class Landing extends SimEvent{
+		//last 2 min
+		@Override
+		public void Process() {
+			//getMyAirport().setTrackFull(true);
+			setAirplaneState(StateAirplane.Landing);
+			LogicalDuration t = LogicalDuration.ofSeconds(120);
+			Post(new RollingToGate(),getCurrentLogicalDate().add(t));
+			Logger.Information(this.Owner(), "Landing", Messages.Landing);
+			getMyAirport().setTrackFull(false);
+			if (getMyAirport().getWaitTrackList().size()>0){
+				Airplane air=getMyAirport().getWaitTrackList().getFirst();
+				air.closeToAirport(getMyAirport());
+			}
+		}
+		
 	}
-	
+	/*
 	@Override
 	public void rollingToGate(Airport a) {
 		//need to check if gate is full
@@ -169,8 +230,22 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		setAirplaneState(StateAirplane.RollingToGate);
 		Logger.Information(this, "RollingToGate", Messages.RollingToGate, this.getName());
 		notifyEndArrive(a);
+	}*/
+	class RollingToGate extends SimEvent{
+		//last 2~6 mins
+		@Override
+		public void Process() {
+			getMyAirport().setTW1Full(true);
+			setAirplaneState(StateAirplane.RollingToGate);
+			double d=random.nextDouble()*240+120;
+			LogicalDuration t = LogicalDuration.ofSeconds(d);
+			Post(new UnloadingPassagersAndPreparing(),getCurrentLogicalDate().add(t));
+			Logger.Information(this.Owner(), "RollingToGate", Messages.RollingToGate);
+			
+		}
+		
 	}
-
+	/*
 	@Override
 	public void notifyEndArrive(Airport a) {
 		// TODO Auto-generated method stub
@@ -185,38 +260,46 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		setAirplaneState(StateAirplane.UnloadingPassagersAndPreparing);
 		Logger.Information(this, "UnloadingPassagersAndPreparing", Messages.UnloadingPassagersAndPreparing, this.getName());
 		loadingPassagers(a);
+	}*/
+	class UnloadingPassagersAndPreparing extends SimEvent{
+		//last 10+30 min
+		@Override
+		public void Process() {
+			getMyAirport().setTW1Full(false);;
+			setAirplaneState(StateAirplane.NotifyEndArrive);
+			Logger.Information(this.Owner(), "NotifyEndArrive", Messages.NotifyEndArrive);
+			setAirplaneState(StateAirplane.UnloadingPassagersAndPreparing);
+			LogicalDuration t = LogicalDuration.ofSeconds(40*60);
+			Post(new loadingPassagers(),getCurrentLogicalDate().add(t));
+			Logger.Information(this.Owner(), "UnloadingPassagersAndPreparing", Messages.UnloadingPassagersAndPreparing);
+			
+		}
+		
 	}
-	
+	/*
 	@Override
 	public void loadingPassagers(Airport a) {
 		setAirplaneState(StateAirplane.LoadingPassagers);
 		Logger.Information(this, "LoadingPassagers", Messages.LoadingPassagers, this.getName());
 		notifyBeginDepart(a);
+	} 
+	*/
+	class loadingPassagers extends SimEvent{
+		//last 20 mins
+		@Override
+		public void Process() {
+			setAirplaneState(StateAirplane.LoadingPassagers);
+			LogicalDuration t = LogicalDuration.ofSeconds(20*60);
+			//Post(new Landing(),getCurrentLogicalDate().add(t));
+			Logger.Information(this.Owner(), "LoadingPassagers", Messages.LoadingPassagers);
+		}
 	}
-
+	/*
 	@Override
 	public void notifyBeginDepart(Airport a) {
 		setAirplaneState(StateAirplane.NotifyBeginDepart);
 		Logger.Information(this, "LoadingPassagers", Messages.LoadingPassagers, this.getName());
 		
-	}
-
-	@Override
-	public void WaitForTW2(Airport a) {
-		while (a.isTW2Full()){
-			setAirplaneState(StateAirplane.WaitForTW2);
-			Logger.Information(this, "WaitForTW2", Messages.WaitForTW2, this.getName());
-		}
-		rollingToTrack(a);
-		
-	}
-
-	public boolean findClosedAirplanes(){
-		List<SimObject> a = getEngine().requestSimObject(openedAirportRequest);
-		if (a.size()> 0){
-			return true;
-		}else
-			return false;
 	}
 	
 	@Override
@@ -228,29 +311,86 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 			waitForTrackToDepart(a);
 		}
 		takeoff(a);
+	}*/
+	@Override
+	public boolean WaitForTW2(Airport a) {
+		if (a.isTW2Full()){
+			setAirplaneState(StateAirplane.WaitForTW2);
+			a.getWaitTw2List().add(this);
+			Logger.Information(this, "WaitForTW2", Messages.WaitForTW2, this.getName());
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
-	
+	/*
 	@Override
 	public void waitForTrackToDepart(Airport a) {
 		setAirplaneState(StateAirplane.WaitForTrackToDepart);
 		Logger.Information(this, "WaitForTrackToDepart", Messages.WaitForTrackToDepart, this.getName());
+	}*/
+	
+	class RollingToTrack extends SimEvent{
+		//rolling last 2 mins
+		@Override
+		public void Process() {
+			setAirplaneState(StateAirplane.NotifyBeginDepart);
+			Logger.Information(this, "NotifyBeginDepart", Messages.NotifyBeginDepart);
+			if (!WaitForTW2(getMyAirport())){
+				if (getMyAirport().isTrackFull()){
+					setAirplaneState(StateAirplane.WaitForTrackToDepart);
+					Logger.Information(this, "WaitForTrackToDepart", Messages.WaitForTrackToDepart);
+				}else{
+					LogicalDuration t = LogicalDuration.ofSeconds(120);
+					Post(new Takeoff(),getCurrentLogicalDate().add(t));
+				}
+			}
+		}
 	}
-
+	
+	/*
 	@Override
 	public void takeoff(Airport a) {
 		a.setTrackFull(true);
 		setAirplaneState(StateAirplane.Takeoff);
 		Logger.Information(this, "Takeoff", Messages.Takeoff, this.getName());
 		notifyEndDepart(a);
+	}*/
+	class Takeoff extends SimEvent{
+		//last 3 mins
+		@Override
+		public void Process() {
+			setAirplaneState(StateAirplane.Takeoff);
+			getMyAirport().setTrackFull(true);
+			LogicalDuration t = LogicalDuration.ofSeconds(3*60);
+			Post(new Departing(),getCurrentLogicalDate().add(t));
+			Logger.Information(this, "Takeoff", Messages.Takeoff);
+		}
 	}
 	
 	@Override
 	public void notifyEndDepart(Airport a) {
 		setAirplaneState(StateAirplane.Takeoff);
 		Logger.Information(this, "Takeoff", Messages.Takeoff, this.getName());
-		
+		//departing(a);
+	}
+/*
+	@Override
+	public void departing(Airport a) {
 		setAirplaneState(StateAirplane.Departing);
 		Logger.Information(this, "Departing", Messages.Departing, this.getName());
+		deactivate();
+		
+	}*/
+	class Departing extends SimEvent{
+
+		@Override
+		public void Process() {
+			setAirplaneState(StateAirplane.Departing);
+			Logger.Information(this, "Departing", Messages.Departing);
+			deactivate();
+		}
 		
 	}
 
@@ -269,6 +409,9 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
 
 
 

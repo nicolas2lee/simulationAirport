@@ -62,7 +62,11 @@ public class AirportScenario extends SimScenario {
 		@Override
 		public void Process() {
 			LogicalDateTime d = getNextTimeAirplane();
-			if (d!= null) Post(new NewAirplaneEvent(),d);			
+			if (d!= null) {
+				//setCurrentDateTime(d);
+				Post(new NewAirplaneEvent(),d);		
+			}	
+			//setCurrentDateTime();
 			Post(new endArriveAirplane(), getCurrentLogicalDate().truncateToDays().add(endFlightTime));
 			Logger.Information(this.Owner(), "beginArriveAirplane", Messages.BeginPeriodNewAirplane);
 		}
@@ -90,7 +94,7 @@ public class AirportScenario extends SimScenario {
 	class endArriveAirplane extends SimEvent {
 		@Override
 		public void Process() {			
-			System.out.println("==========="+getCurrentLogicalDate().truncateToDays()+"==================");
+			//System.out.println("==========="+getCurrentLogicalDate().truncateToDays()+"==================");
 			LogicalDateTime d=getCurrentLogicalDate().truncateToDays().add(LogicalDuration.ofDay(1).add(beginFlightTime));
 			setCurrentDateTime(d);
 			Post(new beginArriveAirplane(),d);			
@@ -101,19 +105,28 @@ public class AirportScenario extends SimScenario {
 	
 	private class VerifDistribRecord implements IRecordable{
 		double d;
-		public VerifDistribRecord(double d){
+		CategoriesGenerator interval;
+		LogicalDateTime ct;
+		double lamda;
+		String s;
+		public VerifDistribRecord(double lamda, double d, CategoriesGenerator interval,LogicalDateTime ct,String s){
 			this.d = d;
+			this.lamda=lamda;
+			this.interval=interval;
+			this.ct=ct;
+			this.s=s;
 		}
 		@Override
 		public String[] getTitles() {
-			return new String[]{"delta","Categorie"};
+			return new String[]{"delta","Categorie","StateInterval"};
 			
 		}
 
 		@Override
 		public String[] getRecords() {
 			//arrivalDelayRecordingCatGen.getSegmentOf(d).toString();
-			return new String[]{Double.toString(d/60), arrivalDelayRecordingCatGen.getSegmentOf(d).toString()};
+		
+			return new String[]{Double.toString(d/60), interval.getSegmentOf(d/60).toString(),s};
 		}
 
 		@Override
@@ -124,23 +137,63 @@ public class AirportScenario extends SimScenario {
 		
 	}
 	
-	public double getFrequenceArriveAiplanePerHour(LogicalDateTime t){
+	public String getInterval(LogicalDateTime t){
 		DayOfWeek d=t.getDayOfWeek();
 		LogicalDuration hour = t.truncateToHours().soustract(t.truncateToDays());
-		if ((d.toString()!= DayOfWeek.SATURDAY.toString()) && (d.toString()!= DayOfWeek.SUNDAY.toString())){
-			return asf.getFrequenceArriveAirplanePerHour_inWeekEnd();
+		if ((d.toString()== DayOfWeek.SATURDAY.toString()) || (d.toString()== DayOfWeek.SUNDAY.toString())){
+			return "weekend";
+			//return asf.getFrequenceArriveAirplanePerHour_inWeekEnd();
 		}else{
 			if ((hour.getHours()>6 && hour.getHours()<10) || (hour.getHours()>16 && hour.getHours()<19)){
-				return asf.getFrequenceArriveAirplanePerHour_inBusyHour();
+				//return asf.getFrequenceArriveAirplanePerHour_inBusyHour();
+				if (hour.getHours()>6 && hour.getHours()<10){
+					return "7-10";
+				}else{
+					return "17-19";
+				}
+			}else{
+				if (hour.getHours()>9 && hour.getHours()<17){
+					return "10-17";
+				}else{
+					
+					return "19-22";
+				}
 			}
-			return asf.getFrequenceArriveAirplanePerHour_normal();
+			//return asf.getFrequenceArriveAirplanePerHour_normal();
 		}
 	}
 	
 	LogicalDateTime getNextTimeAirplane() {
-		double lamda = getFrequenceArriveAiplanePerHour(getCurrentDateTime())/3600;
+		LogicalDateTime ct=getEngine().SimulationDate() ;
+		//System.out.println(getEngine().SimulationDate());
+		String stateInterval = getInterval(ct);
+		double lamda=0.0;
+		CategoriesGenerator interval=null;
+		switch (stateInterval){
+			case "7-10":
+				lamda=asf.getFrequenceArriveAirplanePerHour_inBusyHour()/3600;
+				interval = asf.getArrivalDelayRecordingCatGen7_10();
+				break;
+			case "10-17":
+				lamda=asf.getFrequenceArriveAirplanePerHour_normal()/3600;
+				interval = asf.getArrivalDelayRecordingCatGen10_17();
+				break;
+			case "17-19":
+				lamda=asf.getFrequenceArriveAirplanePerHour_inBusyHour()/3600;
+				interval = asf.getArrivalDelayRecordingCatGen17_19();
+				break;
+			case "19-22":
+				lamda=asf.getFrequenceArriveAirplanePerHour_normal()/3600;
+				interval= asf.getArrivalDelayRecordingCatGen19_22();
+				break;
+			case "weekend":
+				lamda=asf.getFrequenceArriveAirplanePerHour_inWeekEnd()/3600;
+				interval = asf.getArrivalDelayRecordingCatGenWeekend();
+				break;
+		}
+		//double lamda = /3600;
 		double d=random.nextExp(lamda);
-		Logger.Data(new VerifDistribRecord(d));
+		Logger.Data(new VerifDistribRecord(lamda, d, interval,getEngine().SimulationDate(),stateInterval));
 		
 		LogicalDuration t= LogicalDuration.ofSeconds(d);
 		LogicalDateTime nextEndOfAirplaneArrival = getCurrentLogicalDate().truncateToDays().add(endFlightTime);

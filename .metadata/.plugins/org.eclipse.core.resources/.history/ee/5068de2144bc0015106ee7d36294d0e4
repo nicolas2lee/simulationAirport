@@ -1,7 +1,0 @@
-package enstabretagne.Scenario;
-
-public class testAirportScenario extends SimScenario{
-
-	
-
-}

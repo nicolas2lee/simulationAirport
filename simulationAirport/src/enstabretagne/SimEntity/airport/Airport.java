@@ -28,7 +28,42 @@ public class Airport extends SimEntity implements IRecordable {
 	 * 
 	 */
 	HashMap<String, Airplane> initialAirplanes;
-	LinkedList<Airplane> FIFO;
+	public LinkedList<Airplane> getWaitTrackList() {
+		return waitTrackList;
+	}
+
+
+	public void setWaitTrackList(LinkedList<Airplane> waitTrackList) {
+		this.waitTrackList = waitTrackList;
+	}
+
+
+	public LinkedList<Airplane> getWaitTw1List() {
+		return waitTw1List;
+	}
+
+
+	public void setWaitTw1List(LinkedList<Airplane> waitTw1List) {
+		this.waitTw1List = waitTw1List;
+	}
+
+
+	public LinkedList<Airplane> getWaitTw2List() {
+		return waitTw2List;
+	}
+
+
+	public void setWaitTw2List(LinkedList<Airplane> waitTw2List) {
+		this.waitTw2List = waitTw2List;
+	}
+
+
+
+
+	LinkedList<Airplane> waitTrackList;
+	LinkedList<Airplane> waitTw1List;
+	LinkedList<Airplane> waitTw2List;
+	
 	LogicalDuration airportOpened;
 	LogicalDuration airportClosed;
 	
@@ -75,14 +110,7 @@ public class Airport extends SimEntity implements IRecordable {
 
 	boolean isOpened;
 	
-	public LinkedList<Airplane> getFIFO() {
-		return FIFO;
-	}
 
-
-	public void setFIFO(LinkedList<Airplane> fIFO) {
-		FIFO = fIFO;
-	}
 
 	
 	public Airport(SimEngine engine, String name, SimFeatures features) {
@@ -91,7 +119,10 @@ public class Airport extends SimEntity implements IRecordable {
 		AirportFeatures af = (AirportFeatures) features;
 		//open time and close time need to be added after
 		initialAirplanes = new HashMap<>();
-		FIFO = new LinkedList<>();
+		
+		waitTrackList = new LinkedList<>();
+		waitTw1List = new LinkedList<>();
+		waitTw2List = new LinkedList<>();
 		
 		TW1Full=false;
 		TW2Full=false;
@@ -122,8 +153,9 @@ public class Airport extends SimEntity implements IRecordable {
 
 	@Override
 	public String[] getRecords() {
-		String[] records={Integer.toString(getFIFO().size())};
-		return records;
+		//String[] records={Integer.toString(getFIFO().size())};
+		//return records;
+		return null;
 	}
 
 	@Override
@@ -146,7 +178,7 @@ public class Airport extends SimEntity implements IRecordable {
 
 	@Override
 	protected void AfterActivate(IEntity sender, boolean starting) {
-		//Post(new ClosedAirport());
+		Post(new CloseAirport());
 		//Post (new ObservationSizeOfFIFO());
 		for (SimEntity a : getChildren()){
 			//System.out.println(a.getStatus());
@@ -166,7 +198,7 @@ public class Airport extends SimEntity implements IRecordable {
 		public void Process() {
 			isOpened=true;
 			Post(new CloseAirport(), getCurrentLogicalDate().truncateToDays().add(airportClosed));
-			
+			Logger.Information(this.Owner(), "OpenAirport", Messages.OpenAirport);
 		}
 	}
 	
@@ -179,7 +211,7 @@ public class Airport extends SimEntity implements IRecordable {
 					LogicalDuration.ofDay(1).add(airportOpened)
 					);
 			
-			Post(new CloseAirport(), getCurrentLogicalDate().truncateToDays().add(airportClosed));
+			Post(new OpenAirport(), tomorrow);
 			Logger.Information(this.Owner(), "ClosAirport", Messages.CloseAirport);
 			
 		}

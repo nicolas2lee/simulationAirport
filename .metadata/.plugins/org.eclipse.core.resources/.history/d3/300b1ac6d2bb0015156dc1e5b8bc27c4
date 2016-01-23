@@ -1,5 +1,0 @@
-package simulation.airport.SEntity.Airplane;
-
-public enum AirplaneStatus {
-
-}

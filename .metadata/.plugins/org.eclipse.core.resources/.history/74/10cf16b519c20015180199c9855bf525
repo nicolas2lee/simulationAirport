@@ -1,0 +1,34 @@
+/**
+ * 
+ */
+package enstabretagne.messages;
+
+/**
+ * @author zhengta
+ *
+ */
+public class Messages {
+	
+	public static final String BeginPeriodNewAirplane = "The begin time of a new arrival airplane";
+	public static final String EndPeriodNewAirplane = "The end time of a new arrival airplane";
+	
+	public static final String ArriveToAirport = "A new airplane arrives to the airport";
+	
+	public static final String CloseAirport = "Airport is closed";
+	public static final String OpenAirport = "Airport is opened";
+	
+	public static final String NewAirplane = "New Arrived Airplane";
+	public static final String NotifyBeginArrive = "Notify a new airplane is arriving";
+	public static final String WaitForTW1AndTrack = "Airplane is waiting for TW1 and track being free";
+	public static final String CloseToAirport = "Airplane is closing to airport";
+	public static final String Landing = "Airplane is landing";
+	public static final String RollingToGate = "Airplane is rolling to Gate";
+	public static final String NotifyEndArrive = "Notify an Airplane Arried and stopped ";
+	public static final String UnloadingPassagersAndPreparing = "Airplane is unlonding passagers and preparing for departure";
+	public static final String LoadingPassagers = "Airplane is loading passagers";
+	public static final String WaitForTW2 = "Airplane is waiting for TW2 being free";
+	public static final String RollingToTrack = "Airplane is rolling to track";
+	public static final String WaitForTrackToDepart = "Airplane is waiting for track being free";
+	public static final String Takeoff = "Airplane is taking off";
+	public static final String Departing = "Airplane is departing";
+}

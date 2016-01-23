@@ -1,9 +1,0 @@
-package simulation.airport.SimEvent;
-
-public class DepartEvent {
-
-	public DepartEvent() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

@@ -34,4 +34,5 @@
 <fullyQualifiedTypeName name="enstabretagne.base.utility.CategoriesGenerator"/>
 <fullyQualifiedTypeName name="enstabretagne.SimEntity.airplane.AirplaneInit"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.time.DayOfWeek"/>
 </qualifiedTypeNameHistroy>

@@ -1,9 +1,0 @@
-package enstabretagne.Scenario;
-
-public class testAirportScenario extends SimScenario{
-
-	public testAirportScenario() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
