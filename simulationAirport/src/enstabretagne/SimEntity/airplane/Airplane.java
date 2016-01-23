@@ -178,6 +178,7 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 	@Override
 	public void closeToAirport(Airport a) {
 		setAirplaneState(StateAirplane.CloseToAirport);
+		a.setTrackFull(true);
 		System.out.println("====================================");
 		System.out.println("aiport's track is full "+a.isTrackFull());
 		System.out.println("aiport's TW1 is full "+a.isTW1Full());
@@ -187,7 +188,6 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		a.getWaitTrackList().remove(this);
 		System.out.println(a.getWaitTrackList());
 		System.out.println("====================================");
-		a.setTrackFull(true);
 		Logger.Information(this, "CloseToAirport", Messages.CloseToAirport, this.getName());
 		//how to add 2~5min 120~300s
 		double d=random.nextDouble()*180+120;
@@ -214,7 +214,7 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 			LogicalDuration t = LogicalDuration.ofSeconds(120);
 			Post(new RollingToGate(),getCurrentLogicalDate().add(t));
 			Logger.Information(this.Owner(), "Landing", Messages.Landing);
-			getMyAirport().setTrackFull(false);
+			getMyAirport().setTrackFull(true);
 			if (getMyAirport().getWaitTrackList().size()>0){
 				Airplane air=getMyAirport().getWaitTrackList().getFirst();
 				air.closeToAirport(getMyAirport());
