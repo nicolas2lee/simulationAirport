@@ -183,6 +183,7 @@ public abstract class SimObject {
 	}
 	protected void Post (SimEvent ev,LogicalDateTime t) {
 	      ev.initialize(this, t);
+	      //System.out.println("====================== here this is"+this+"====================");
 	      Logger.Detail(ev.Owner(),"Post",MessagesSimEngine.PostingAt0, ev.ScheduleDate());
 	      timeEvents.put(ev, ev);
 	      if (IsActive() && (engine != null))

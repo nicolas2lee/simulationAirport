@@ -20,6 +20,7 @@ public class Messages {
 	public static final String NewAirplane = "New Arrived Airplane";
 	public static final String NotifyBeginArrive = "Notify a new airplane is arriving";
 	public static final String WaitForTW1AndTrack = "Airplane is waiting for TW1 and track being free";
+	public static final String WaitForTW1 = "Airplane is waiting for TW1 being free";
 	public static final String CloseToAirport = "Airplane is closing to airport";
 	public static final String Landing = "Airplane is landing";
 	public static final String RollingToGate = "Airplane is rolling to Gate";

@@ -68,7 +68,7 @@ public class AirportMonitor extends MonteCarloMonitor {
 		
 		//Déclaration des données qui serviront à l'initialisation du scénario
 		LogicalDateTime start = new LogicalDateTime("01/09/2014 06:00");
-		int nbDaysOfSimulation = 3;
+		int nbDaysOfSimulation = 7;
 
 		String beginFlightTime="07:00";
 		String endFlightTime="22:00";

@@ -6,6 +6,7 @@ public enum StateAirplane {
 	WaitForTW1AndTrack("WaitForTW1AndTrack"),
 	CloseToAirport("CloseToAirport"),
 	Landing("Landing"),
+	WaitForTW1("WaitForTW1"),
 	RollingToGate("RollingToGate"),
 	NotifyEndArrive("NotifyEndArrive"),
 	UnloadingPassagersAndPreparing("UnloadingPassagersAndPreparing"),

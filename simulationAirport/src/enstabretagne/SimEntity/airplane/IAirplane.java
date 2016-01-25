@@ -12,7 +12,8 @@ public interface IAirplane {
 	//public void UnloadingPassagersAndPreparing(Airport a);
 	//public void loadingPassagers(Airport a);
 	//public void notifyBeginDepart(Airport a);
-	public boolean WaitForTW2(Airport a);
+	public void WaitForTW1(Airport a);
+	public void WaitForTW2(Airport a);
 	//public void rollingToTrack(Airport a);
 //	public void waitForTrackToDepart(Airport a);
 	//public void takeoff(Airport a);
