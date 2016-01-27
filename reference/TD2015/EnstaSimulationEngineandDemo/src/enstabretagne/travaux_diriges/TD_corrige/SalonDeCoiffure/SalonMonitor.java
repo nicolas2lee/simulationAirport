@@ -53,7 +53,7 @@ public class SalonMonitor extends MonteCarloMonitor  implements IMonitor {
 		
 		HashMap<String,Object> xlsxParams=new HashMap<String,Object>();		
 		xlsxParams.put(LoggerParamsNames.DirectoryName.toString(), System.getProperty("user.dir") + "\\log");
-		xlsxParams.put(LoggerParamsNames.FileName.toString(), "SalonCoiffure.xlsx");
+		xlsxParams.put(LoggerParamsNames.FileName.toString(), "testSalonCoiffure.xlsx");
 		
 		//Mise en oeuvre du SXLSExcelDatalogger: celui ci fonctionne par buffer ce qui permet de gérer des tables excel de grande taille sans avoir à les mettre intégralement en mémoire.
 		loggersNames.put(SXLSXExcelDataloggerImpl.class.getCanonicalName(),xlsxParams);
@@ -117,7 +117,7 @@ public class SalonMonitor extends MonteCarloMonitor  implements IMonitor {
 				start,
 				start.add(LogicalDuration.ofDay(nbJoursDeSimulation))
 		));
-				/*
+				
 		///Famille Scénario 2: scénario avec un coiffeur supplémentaire 
 		l = new ArrayList<CoiffeurFeature>();
 		l.add(new CoiffeurFeature(CoiffeursNames.Flaky,vitesseDeCoupe,StatutCoiffeur.Employe,30));
@@ -213,7 +213,7 @@ public class SalonMonitor extends MonteCarloMonitor  implements IMonitor {
 				start,
 				start.add(LogicalDuration.ofDay(nbJoursDeSimulation))
 		));
-*/
+
 		sm.run(listeScenario, repliqueNumber);
 		sm.terminate(false);
 		

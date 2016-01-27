@@ -153,9 +153,9 @@ public class Airport extends SimEntity implements IRecordable {
 
 	@Override
 	public String[] getRecords() {
-		//String[] records={Integer.toString(getFIFO().size())};
-		//return records;
-		return null;
+		String[] records={Integer.toString(1)};
+		return records;
+		//return null;
 	}
 
 	@Override
