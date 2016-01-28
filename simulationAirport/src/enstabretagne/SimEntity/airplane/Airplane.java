@@ -139,15 +139,35 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 
 	@Override
 	public String[] getTitles() {
-		String[] titles={"Time for waiting track to arrive", "Time for waiting TW1", "Time for waiting TW2",
-				 "Time for waiting track to depart"};
+		String[] titles={//"isTrackfull",
+						"entryTrackListArr","quitTrackListArr",
+				 		"entryTW1List","quitTw1List",
+				 		"entryTW2List","quitTw2List",
+				 		"entryTrackListDep","quitTrackListDep",
+				 		"Time for waiting track to arrive", "Time for waiting TW1", 
+				 		"Time for waiting TW2",
+		                "Time for waiting track to depart"};
 		return titles;
 	}
 
 	@Override
 	public String[] getRecords() {
 		String[] rec;
-		rec= new String[]{Integer.toString(timeWaitTrackArrive.getMinutes()),
+		rec= new String[]{
+				//getCurrentLogicalDate()+"  "+String.valueOf(getMyAirport().getWaitTrackList()),
+				timeInWaitTrackListForArrive.toString(),
+				timeOutWaitTrackListForArrive.toString(),
+
+				timeInWaitTW1List.toString(),
+				timeOutWaitTW1List.toString(),
+				
+				timeInWaitTW2List.toString(),
+				timeOutWaitTW2List.toString(),
+				
+				timeInWaitTrackListForDepart.toString(),
+				timeOutWaitTrackListForDepart.toString(),
+				
+				Integer.toString(timeWaitTrackArrive.getMinutes()),
 				Integer.toString(timeWaitTW1.getMinutes()),
 				Integer.toString(timeWaitTW2.getMinutes()),
 				Integer.toString(timeWaitTrackDepart.getMinutes())};
@@ -204,10 +224,12 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 	
 	@Override
 	public void waitTrackAndTW1(Airport a) {
-		if (a.isTrackFull() && a.isTW1Full()){
+		System.out.println("+++++++++++++++++++"+a.getWaitTrackList().size());
+		if (a.isTrackFull() && a.isTW1Full() ){
+		//if (a.isTrackFull() && a.isTW1Full() || a.getWaitTrackList().size()>=1){
 			setAirplaneState(StateAirplane.WaitForTW1AndTrack);
 			a.getWaitTrackList().add(this);
-			Logger.Information(this, "WaitForTW1AndTrack", Messages.WaitForTW1AndTrack, this.getName());	
+			Logger.Information(this, "WaitForTW1AndTrack", Messages.WaitForTW1AndTrack, this.getName());
 		}else{
 			closeToAirport(a);
 		}
@@ -215,6 +237,7 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 
 	@Override
 	public void closeToAirport(Airport a) {
+		System.out.println("+++++++++++++"+a.getWaitTrackList());
 		setAirplaneState(StateAirplane.CloseToAirport);
 		a.setTrackFull(true);
 		//add 2~5min 120~300s
@@ -252,6 +275,7 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		public void Process() {
 			timeInWaitTW1List = (LogicalDateTime) getCurrentLogicalDate().getCopy();
 			if (getMyAirport().isTW1Full()){
+			//if (getMyAirport().isTW1Full() || getMyAirport().getWaitTw1List().size()>0){
 				WaitForTW1(getMyAirport());
 			}
 			else{
@@ -347,14 +371,15 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 			}
 			//System.out.println(getMyAirport().isTW2Full());
 			//System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-			if (getMyAirport().isTW2Full()== false){
+			if (getMyAirport().isTW2Full() /*|| getMyAirport().getWaitTw2List().size()>0*/){
+				WaitForTW2(getMyAirport());
+			}else{
 				setAirplaneState(StateAirplane.RollingToTrack);
 				getMyAirport().setTW2Full(true);
 				LogicalDuration t = LogicalDuration.ofSeconds(120);
 				Post(new Takeoff(),getCurrentLogicalDate().add(t));
 				Logger.Information(this.Owner(), "RollingToTrack", Messages.RollingToTrack);
-			}else{
-				WaitForTW2(getMyAirport());
+				
 			}
 		}
 	}
@@ -371,7 +396,7 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 		public void Process() {
 			//System.out.println("###################### Taking off#############################");
 			timeInWaitTrackListForDepart = (LogicalDateTime) getCurrentLogicalDate().getCopy();
-			if (getMyAirport().isTrackFull()){
+			if (getMyAirport().isTrackFull() /*|| getMyAirport().getWaitTrackList().size()>0*/){
 				WaitForTrack(getMyAirport());
 			}else{
 				getMyAirport().setTW2Full(false);
@@ -392,8 +417,8 @@ public class Airplane extends SimEntity implements IAirplane, IRecordable{
 	
 	@Override
 	public void notifyEndDepart(Airport a) {
-		setAirplaneState(StateAirplane.Takeoff);
-		Logger.Information(this, "Takeoff", Messages.Takeoff, this.getName());
+		setAirplaneState(StateAirplane.NotifyEndDepart);
+		Logger.Information(this, "notifyEndDepart", Messages.NotifyEndDepart, this.getName());
 		//departing(a);
 	}
 

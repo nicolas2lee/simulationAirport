@@ -32,5 +32,6 @@ public class Messages {
 	public static final String RollingToTrack = "Airplane is rolling to track";
 	public static final String WaitForTrackToDepart = "Airplane is waiting for track being free";
 	public static final String Takeoff = "Airplane is taking off";
+	public static final String NotifyEndDepart = "Notify it is the end of departing";
 	public static final String Departing = "Airplane is departing";
 }
