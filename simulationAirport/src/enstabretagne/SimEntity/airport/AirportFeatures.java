@@ -33,7 +33,15 @@ public class AirportFeatures extends SimFeatures{
 	private String closedhour;
 	int frequenceObservationSizeOfFIFO;
 	
-	int nbAirplaneMax;
+	private int nbAirplaneMax;
+	public int getNbAirplaneMax() {
+		return nbAirplaneMax;
+	}
+
+	public void setNbAirplaneMax(int nbAirplaneMax) {
+		this.nbAirplaneMax = nbAirplaneMax;
+	}
+
 	private List<AirplaneFeature> airplaneFeatureslist;
 	
 	public List<AirplaneFeature> getAirplaneFeatures() {

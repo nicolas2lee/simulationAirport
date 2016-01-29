@@ -31,7 +31,7 @@ public class AirportScenario extends SimScenario {
 	private LogicalDuration endFlightTime;
 	private AirportScenarioFeatures asf;
 	private LogicalDateTime currentDateTime;
-	
+
 	public LogicalDateTime getCurrentDateTime() {
 		return currentDateTime;
 	}
@@ -52,15 +52,19 @@ public class AirportScenario extends SimScenario {
 		beginFlightTime = LogicalDuration.fromString(asf.getBeginFlightTime());
 		endFlightTime = LogicalDuration.fromString(asf.getEndFlightTime());
 		
-		
+		//Airport a= new Airport(getEngine(),asf.getApFeatures().getId(), asf.getApFeatures(), asf.getAirportinit(), true);
 		Add(new Action_EntityCreation(Airport.class, asf.getApFeatures().getId(), asf.getApFeatures(), asf.getAirportinit()));
 		
 	}
+	
+
 	
 	int nbAirplanes;
 	class beginArriveAirplane extends SimEvent{
 		@Override
 		public void Process() {
+			
+			//setGoodweather(initWeather());
 			LogicalDateTime d = getNextTimeAirplane();
 			if (d!= null) {
 				//setCurrentDateTime(d);
@@ -109,12 +113,14 @@ public class AirportScenario extends SimScenario {
 		LogicalDateTime ct;
 		double lamda;
 		String s;
+		String weather;
 		public VerifDistribRecord(double lamda, double d, CategoriesGenerator interval,LogicalDateTime ct,String s){
 			this.d = d;
 			this.lamda=lamda;
 			this.interval=interval;
 			this.ct=ct;
 			this.s=s;
+			
 		}
 		@Override
 		public String[] getTitles() {

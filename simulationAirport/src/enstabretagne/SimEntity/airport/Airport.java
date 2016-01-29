@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import enstabretagne.SimEntity.airplane.Airplane;
 import enstabretagne.SimEntity.airplane.AirplaneFeature;
+import enstabretagne.base.math.MoreRandom;
 import enstabretagne.base.time.LogicalDateTime;
 import enstabretagne.base.time.LogicalDuration;
 import enstabretagne.base.utility.IRecordable;
@@ -63,7 +64,20 @@ public class Airport extends SimEntity implements IRecordable {
 	LinkedList<Airplane> waitTrackList;
 	LinkedList<Airplane> waitTw1List;
 	LinkedList<Airplane> waitTw2List;
+	LinkedList<Airplane> waitGateList;
 	
+	public LinkedList<Airplane> getWaitGateList() {
+		return waitGateList;
+	}
+
+
+	public void setWaitGateList(LinkedList<Airplane> waitGateList) {
+		this.waitGateList = waitGateList;
+	}
+
+
+
+
 	LogicalDuration airportOpened;
 	LogicalDuration airportClosed;
 	
@@ -110,23 +124,40 @@ public class Airport extends SimEntity implements IRecordable {
 
 	boolean isOpened;
 	
-
+	private boolean goodweather;
 
 	
+	public boolean isGoodweather() {
+		return goodweather;
+	}
+
+
+	public void setGoodweather(boolean goodweather) {
+		this.goodweather = goodweather;
+	}
+
+
+	private MoreRandom random;
+	public int maxnumAir;
 	public Airport(SimEngine engine, String name, SimFeatures features) {
 
 		super(engine, name, features);
 		AirportFeatures af = (AirportFeatures) features;
 		//open time and close time need to be added after
 		initialAirplanes = new HashMap<>();
+		random = new MoreRandom(MoreRandom.globalSeed);
+		maxnumAir = af.getNbAirplaneMax();
 		
 		waitTrackList = new LinkedList<>();
 		waitTw1List = new LinkedList<>();
 		waitTw2List = new LinkedList<>();
+		waitGateList = new LinkedList<>();
 		
 		TW1Full=false;
 		TW2Full=false;
 		trackFull=false; 
+		
+		goodweather=true;
 		
 		airportOpened = LogicalDuration.fromString(af.getOpenhour());
 		airportClosed = LogicalDuration.fromString(af.getClosedhour());
@@ -140,6 +171,16 @@ public class Airport extends SimEntity implements IRecordable {
 		
 	}
 	
+	public int getMaxnumAir() {
+		return maxnumAir;
+	}
+
+
+	public void setMaxnumAir(int maxnumAir) {
+		this.maxnumAir = maxnumAir;
+	}
+
+
 	public boolean isOpened(){
 		return isOpened;
 	}
@@ -192,10 +233,19 @@ public class Airport extends SimEntity implements IRecordable {
 		
 	}
 	
+	public boolean initWeather(){
+		if (random.nextDouble() < 0.125){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	class OpenAirport extends SimEvent{
 
 		@Override
 		public void Process() {
+			setGoodweather(initWeather());
 			isOpened=true;
 			Post(new CloseAirport(), getCurrentLogicalDate().truncateToDays().add(airportClosed));
 			Logger.Information(this.Owner(), "OpenAirport", Messages.OpenAirport);

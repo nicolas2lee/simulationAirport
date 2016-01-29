@@ -25,6 +25,7 @@ public class Messages {
 	public static final String Landing = "Airplane is landing";
 	public static final String RollingToGate = "Airplane is rolling to Gate";
 	public static final String NotifyEndArrive = "Notify it is the end of arriving ";
+	public static final String WaitForGate = "Airplane is waiting for Gate being free";
 	public static final String UnloadingPassagersAndPreparing = "Airplane is unlonding passagers and preparing for departure";
 	public static final String LoadingPassagers = "Airplane is loading passagers";
 	public static final String WaitForTW2 = "Airplane is waiting for TW2 being free";
@@ -33,5 +34,5 @@ public class Messages {
 	public static final String WaitForTrackToDepart = "Airplane is waiting for track being free";
 	public static final String Takeoff = "Airplane is taking off";
 	public static final String NotifyEndDepart = "Notify it is the end of departing";
-	public static final String Departing = "Airplane is departing";
+	public static final String Departing = "Airplane has been departed";
 }
