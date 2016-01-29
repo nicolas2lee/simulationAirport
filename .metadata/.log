@@ -2241,3 +2241,31 @@ Contains: Could not delete: U:\semestre5\uv5.8\simulationAirport\simulationAirpo
 !MESSAGE Problems encountered while deleting files.
 !SUBENTRY 4 org.eclipse.core.filesystem 4 273 2016-01-29 18:21:18.305
 !MESSAGE Could not delete: U:\semestre5\uv5.8\simulationAirport\simulationAirport\src\interaction.mgi.
+
+!ENTRY org.eclipse.core.resources 4 568 2016-01-29 20:05:19.503
+!MESSAGE Could not write workspace metadata 'U:\semestre5\uv5.8\simulationAirport\.metadata\.plugins\org.eclipse.core.resources\11.snap'.
+!STACK 0
+java.io.FileNotFoundException: U:\semestre5\uv5.8\simulationAirport\.metadata\.plugins\org.eclipse.core.resources\11.snap (Le chemin réseau n’a pas été trouvé)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at org.eclipse.core.internal.localstore.SafeChunkyOutputStream.<init>(SafeChunkyOutputStream.java:45)
+	at org.eclipse.core.internal.localstore.SafeChunkyOutputStream.<init>(SafeChunkyOutputStream.java:41)
+	at org.eclipse.core.internal.resources.SaveManager.snapTree(SaveManager.java:1484)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1198)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.modelgoon.plugin 1 0 2016-01-29 20:08:31.804
+!MESSAGE Java project found
+
+!ENTRY org.modelgoon.plugin 1 0 2016-01-29 20:08:53.989
+!MESSAGE Java project found
+
+!ENTRY org.modelgoon.plugin 1 0 2016-01-29 20:09:07.129
+!MESSAGE Java project found
+
+!ENTRY org.modelgoon.plugin 1 0 2016-01-29 20:09:21.414
+!MESSAGE Java project found

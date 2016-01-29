@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Logger.Data" key="selection"/>
+		<item value="Good" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="logger.data"/>
-			<item value="VerifDistribRecord"/>
-			<item value="rolling"/>
-			<item value="rollingt"/>
-			<item value="rollingr"/>
-			<item value="WaitForTW1"/>
-			<item value="after"/>
-			<item value="find"/>
+			<item value="good"/>
+			<item value="frequenceObservationSizeOfFIFO"/>
+			<item value="airplaneId"/>
+			<item value="getId"/>
+			<item value="maxnumAir"/>
+			<item value="nbAirplaneMax"/>
+			<item value="random"/>
+			<item value="open"/>
 		</list>
 		<list key="replacehistory">
 		</list>

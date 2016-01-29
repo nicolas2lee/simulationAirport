@@ -35,4 +35,5 @@
 <fullyQualifiedTypeName name="enstabretagne.simulation.core.SimEvent"/>
 <fullyQualifiedTypeName name="enstabretagne.base.time.LogicalDuration"/>
 <fullyQualifiedTypeName name="enstabretagne.base.math.MoreRandom"/>
+<fullyQualifiedTypeName name="enstabretagne.SimEntity.airplane.Airplane"/>
 </qualifiedTypeNameHistroy>
