@@ -65,7 +65,18 @@ public class Airport extends SimEntity implements IRecordable {
 	LinkedList<Airplane> waitTw1List;
 	LinkedList<Airplane> waitTw2List;
 	LinkedList<Airplane> waitGateList;
+	LinkedList<Airplane> airInGateList;
 	
+	public LinkedList<Airplane> getAirInGateList() {
+		return airInGateList;
+	}
+
+
+	public void setAirInGateList(LinkedList<Airplane> airInGateList) {
+		this.airInGateList = airInGateList;
+	}
+
+
 	public LinkedList<Airplane> getWaitGateList() {
 		return waitGateList;
 	}
@@ -138,7 +149,18 @@ public class Airport extends SimEntity implements IRecordable {
 
 
 	private MoreRandom random;
-	public int maxnumAir;
+	private int maxnumAir;
+	private int nbgate;
+	public int getNbgate() {
+		return nbgate;
+	}
+
+
+	public void setNbgate(int nbgate) {
+		this.nbgate = nbgate;
+	}
+
+
 	public Airport(SimEngine engine, String name, SimFeatures features) {
 
 		super(engine, name, features);
@@ -147,11 +169,13 @@ public class Airport extends SimEntity implements IRecordable {
 		initialAirplanes = new HashMap<>();
 		random = new MoreRandom(MoreRandom.globalSeed);
 		maxnumAir = af.getNbAirplaneMax();
-		
+		nbgate = af.getNbGate();
 		waitTrackList = new LinkedList<>();
 		waitTw1List = new LinkedList<>();
 		waitTw2List = new LinkedList<>();
 		waitGateList = new LinkedList<>();
+		
+		airInGateList = new LinkedList<>();
 		
 		TW1Full=false;
 		TW2Full=false;
@@ -188,13 +212,28 @@ public class Airport extends SimEntity implements IRecordable {
 
 	@Override
 	public String[] getTitles() {
-		String[] titles = {"Size FIFO of wait airplanes"};
+		String[] titles = {"weather",
+				"Size of waiting Track list",
+				"size of waiting Tw1 list",
+				"size of waiting Gate list",
+				"size of waiting Tw2 list"};
 		return titles;
 	}
 
+	public String translateWeather(boolean isgoodweather){
+		if (isgoodweather){
+			return "good weather";
+		}else
+			return "bad weather";
+	}
+	
 	@Override
 	public String[] getRecords() {
-		String[] records={Integer.toString(1)};
+		String[] records={translateWeather(isGoodweather()),
+				Integer.toString(getWaitTrackList().size()),
+				Integer.toString(getWaitTw1List().size()),
+				Integer.toString(getWaitGateList().size()),
+				Integer.toString(getWaitTw2List().size())};
 		return records;
 		//return null;
 	}
@@ -220,7 +259,7 @@ public class Airport extends SimEntity implements IRecordable {
 	@Override
 	protected void AfterActivate(IEntity sender, boolean starting) {
 		Post(new CloseAirport());
-		//Post (new ObservationSizeOfFIFO());
+		Post (new ObservationSizeOfFIFO());
 		for (SimEntity a : getChildren()){
 			//System.out.println(a.getStatus());
 			a.activate();
@@ -271,7 +310,7 @@ public class Airport extends SimEntity implements IRecordable {
 	class ObservationSizeOfFIFO extends SimEvent{
 		@Override
 		public void Process() {
-			//if (isOpened)
+			if (isOpened)
 			Logger.Data((IRecordable) this.Owner());
 			Post(this, getCurrentLogicalDate().add(LogicalDuration.ofMinutes(
 					((AirportFeatures) getFeatures()).getFrequenceObservationSizeOfFIFO()

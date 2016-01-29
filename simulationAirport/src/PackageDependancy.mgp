@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PackageAnalysis>
+    <Package name="enstabretagne.SimEntity.airport" x="632" y="558">
+        <DependencyLink destination="enstabretagne.messages"/>
+        <DependencyLink destination="enstabretagne.SimEntity.airplane"/>
+    </Package>
+    <Package name="enstabretagne.SimEntity.airplane" x="499" y="188">
+        <DependencyLink destination="enstabretagne.messages"/>
+        <DependencyLink destination="enstabretagne.SimEntity.airport"/>
+    </Package>
+    <Package name="enstabretagne.Scenario" x="169" y="117">
+        <DependencyLink destination="enstabretagne.messages"/>
+        <DependencyLink destination="enstabretagne.SimEntity.airplane"/>
+        <DependencyLink destination="enstabretagne.SimEntity.airport"/>
+    </Package>
+    <Package name="enstabretagne.messages" x="631" y="25"/>
+    <Package name="enstabretagne.airportMonitor" x="143" y="546">
+        <DependencyLink destination="enstabretagne.Scenario"/>
+        <DependencyLink destination="enstabretagne.SimEntity.airplane"/>
+        <DependencyLink destination="enstabretagne.SimEntity.airport"/>
+    </Package>
+</PackageAnalysis>

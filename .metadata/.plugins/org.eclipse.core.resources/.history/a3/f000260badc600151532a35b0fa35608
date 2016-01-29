@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <CommunicationClass
+        name="enstabretagne.Scenario.AirportScenario.VerifDistribRecord"
+        x="378" y="29"/>
+    <CommunicationClass
+        name="enstabretagne.airportMonitor.AirportMonitor" x="206" y="73"/>
+    <CommunicationClass
+        name="enstabretagne.Scenario.AirportScenario.NewAirplaneEvent"
+        x="666" y="382">
+        <Communication destinationClassName="enstabretagne.Scenario.AirportScenario"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="enstabretagne.Scenario.AirportScenario.endArriveAirplane"
+        x="129" y="439">
+        <Communication destinationClassName="enstabretagne.Scenario.AirportScenario"/>
+    </CommunicationClass>
+    <CommunicationClass name="enstabretagne.messages.Messages" x="611" y="90"/>
+    <CommunicationClass
+        name="enstabretagne.Scenario.AirportScenarioFeatures" x="497" y="199"/>
+    <CommunicationClass name="enstabretagne.Scenario.AirportScenario"
+        x="313" y="342">
+        <Association
+            destinationClassName="enstabretagne.Scenario.AirportScenarioFeatures"
+            endpointName="asf" kind="Simple"/>
+        <Communication destinationClassName="enstabretagne.Scenario.AirportScenarioFeatures"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="enstabretagne.Scenario.AirportScenario.beginArriveAirplane"
+        x="130" y="270">
+        <Communication destinationClassName="enstabretagne.Scenario.AirportScenario"/>
+    </CommunicationClass>
+</ClassDiagram>

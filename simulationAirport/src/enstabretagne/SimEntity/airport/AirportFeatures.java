@@ -19,6 +19,14 @@ public class AirportFeatures extends SimFeatures{
 	 */
 	private int nbTerminal;
 	private int nbGate;
+	public int getNbGate() {
+		return nbGate;
+	}
+
+	public void setNbGate(int nbGate) {
+		this.nbGate = nbGate;
+	}
+
 	private int nbTrack;
 	private String openhour;
 	
@@ -92,6 +100,7 @@ public class AirportFeatures extends SimFeatures{
 		this.airplaneFeatureslist = airplaneFeatureslist;
 		this.openhour=openhour;
 		this.closedhour=closedhour;
+		this.frequenceObservationSizeOfFIFO = frequenceObservationSizeOfFIFO;
 	}
 
 }
